@@ -177,7 +177,7 @@
 // ==========================================
 .frame {
   --n: 16; // 분자 (비율 가로)
-  --d: 9;  // 분모 (비율 세로)
+  --d: 9; // 분모 (비율 세로)
   aspect-ratio: var(--n) / var(--d);
   overflow: hidden;
   display: flex;
@@ -202,7 +202,7 @@
   --color-dark: #000;
   --reel-height: auto;
   --item-width: 25ch;
-  
+
   display: flex;
   block-size: var(--reel-height);
   // 넘치는 항목은 가로 스크롤 허용

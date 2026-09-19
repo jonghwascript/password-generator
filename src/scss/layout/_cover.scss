@@ -1,0 +1,17 @@
+// ==========================================
+// The Cover (히어로 섹션 - 수직 중앙 집중식 레이아웃)
+// ==========================================
+.cover {
+  --space: var(--s1, 1.5rem);
+  // 세로(열) 방향 Flex 문맥 설정
+  display: flex;
+  flex-direction: column;
+  // 최소 높이를 화면 전체(100vh)로 설정
+  min-block-size: 100vh;
+  // 패딩 값 설정
+  padding: var(--space);
+}
+
+.cover > .center {
+  margin-block: auto;
+}

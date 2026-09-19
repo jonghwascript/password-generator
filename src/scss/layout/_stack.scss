@@ -56,11 +56,10 @@
   margin-block-start: var(--space, 1.5rem);
 }
 
-
 /* 부모 컴포넌트: '나누는 스택' */
 .stack-divided > * + * {
   /* 첫 번째를 제외한 모든 자식들의 '위쪽'에만 마진과 테두리를 줍니다! */
   margin-block-start: 1.5rem;
   padding-block-start: 1.5rem;
-  border-block-start: 1px solid #e2e8f0; 
+  border-block-start: 1px solid #e2e8f0;
 }

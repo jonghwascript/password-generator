@@ -23,7 +23,7 @@
 // 옵션 1: 테마 반전 (다크/라이트 모드)
 // ----------------------------------
 // 배경과 글자색을 뒤집을 때 사용합니다. (강조하고 싶은 카드 등)
-.box[data-invert="true"] {
+.box[data-invert='true'] {
   background-color: #1e293b;
   color: #ffffff;
   border-color: #1e293b;
@@ -32,14 +32,14 @@
 // ----------------------------------
 // 옵션 2: 패딩(여백) 크기 조절
 // ----------------------------------
-.box[data-padding="none"] {
+.box[data-padding='none'] {
   --padding: 0;
 }
 
-.box[data-padding="small"] {
+.box[data-padding='small'] {
   --padding: 0.75rem;
 }
 
-.box[data-padding="large"] {
+.box[data-padding='large'] {
   --padding: 3rem;
 }

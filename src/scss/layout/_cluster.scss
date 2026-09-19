@@ -1,0 +1,28 @@
+// ==========================================
+// The Cluster (가로 줄바꿈 배치 - 태그, 버튼 그룹용)
+// ==========================================
+.cluster {
+  // Flexbox 문맥 설정
+  display: flex;
+  // 자식 요소들이 넘치면 자연스럽게 줄바꿈 허용
+  flex-wrap: wrap;
+  // 간격 설정 (기본 1rem)
+  gap: var(--space, 1rem);
+  // 가로 정렬 방식 선택 (기본값 flex-start)
+  justify-content: center;
+  // 세로 정렬 방식 선택 (기본값 flex-start)
+  align-items: center;
+}
+
+// 옵션 확장 (클러스터의 다양한 맛)
+.cluster[data-justify='start'] {
+  justify-content: flex-start;
+}
+
+.cluster[data-justify='between'] {
+  justify-content: space-between;
+}
+
+.cluster[data-gap='small'] {
+  --space: 0.5rem;
+}

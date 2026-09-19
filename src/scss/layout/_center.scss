@@ -1,0 +1,14 @@
+// ==========================================
+// The Center (가로 중앙 정렬 및 텍스트 너비 제한)
+// ==========================================
+.center {
+  // 패딩을 너비 계산에서 제외
+  box-sizing: content-box;
+  // 최대 너비를 텍스트 읽기 좋은 크기(Measure)로 제한
+  max-inline-size: 60ch;
+  // 가로 여백만 자동으로 설정하여 중앙 정렬
+  margin-inline: auto;
+  // 최소 가로 여백 적용
+  padding-inline-start: var(--s1, 1.5rem);
+  padding-inline-end: var(--s1, 1.5rem);
+}

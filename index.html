@@ -1,40 +1,77 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- displays site properly based on user's device -->
 
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="./images/favicon-32x32.png"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title> </title>
-    <link rel="stylesheet" href="./css/style.css" />
-    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-    <style>
-      .attribution {
-        font-size: 0.6875rem;
-        text-align: center;
-      }
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png" />
+  <link rel="stylesheet" href="./css/style.css" />
 
-      .attribution a {
-        color: hsl(228, 45%, 44%);
-      }
-    </style>
-  </head>
+  <title>Frontend Mentor | Password generator app</title>
+</head>
 
-  <body>
-    <footer class="attribution">
-      Challenge by
-      <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
-      Coded by
-      <a href="https://www.frontendmentor.io/profile/jonghwascript"
-        >jonghwascript</a
-      >.
-    </footer>
-  </body>
+<body>
+  <main class="cover">
+    <section class="stack center">
+      <h1>Password Generator</h1>
+      <div class="output-password box">
+        <div class="cluster" data-justify='between'>
+          <output class="password">P4$5W0rD!</output>
+          <button type="button" aria-label="Copy password">
+            <img src="./images/icon-copy.svg" alt="" />
+          </button>
+        </div>
+      </div>
+      <form class="stack box">
+        <!-- Character Length -->
+        <div class="length">
+          <div class="stack" data-space="small">
+            <div class="cluster" data-justify="between">
+              <label for="length">Character Length</label>
+              <output id="length-val">50</output>
+            </div>
+            <input type="range" min="0" max="100" step="10" value="50" id="length" />
+          </div>
+        </div>
+        <!-- Length Include Uppercase Letters  -->
+        <fieldset class="spcial-letters stack" data-space="small">
+          <legend>Character types</legend>
+          <label class="cluster" data-justify="start" data-gap="small">
+            <input type="checkbox" name="uppercase" value="" />
+            <span>Include Uppercase Letters</span>
+          </label>
+          <label class="cluster" data-justify="start" data-gap="small">
+            <input type="checkbox" name="lowercase" value="" />
+            <span>Include Lowercase Letters</span>
+          </label>
+          <label class="cluster" data-justify="start" data-gap="small">
+            <input type="checkbox" name="numbers" value="" />
+            <span>Include Numbers</span>
+          </label>
+          <label class="cluster" data-justify="start" data-gap="small">
+            <input type="checkbox" name="symbols" value="" />
+            <span>Include Symbols </span>
+          </label>
+        </fieldset>
+        <!-- Strength -->
+        <div class="cluster" data-justify="between">
+          <span id="strength-label">Strength</span>
+          <div class="cluster">
+            <output aria-labelledby="strength-label">MEDIUM</output>
+            <span class="cluster" aria-hidden="true">
+              <div class="one">1</div>
+              <div class="two">2</div>
+              <div class="three">3</div>
+              <div class="four">4</div>
+            </span>
+          </div>
+        </div>
+        <!-- Generate -->
+        <button type="submit" class="generate">generate</button>
+      </form>
+    </section>
+  </main>
+</body>
+
 </html>

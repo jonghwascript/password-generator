@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: "Roboto", sans-serif;
   src: url("../fonts/Roboto-Regular.ttf") format("woff2");
@@ -12,6 +13,10 @@
   font-style: normal;
   font-display: swap;
 }
+html {
+  font-size: 100%;
+}
+
 *,
 *::before,
 *::after {
@@ -55,51 +60,41 @@ figcaption {
   max-width: 60ch;
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   line-height: 1.2;
   max-width: 60ch;
 }
 
-.stack {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
-.stack > * {
-  margin-block: 0;
-}
-
-.stack > * + * {
-  margin-block-start: var(--space, 1.5rem);
-}
-
 .box {
-  padding: var(--s1, 1.5rem);
-  border: var(--border-thin, 1px) solid;
-  outline: var(--border-thin, 1px) solid transparent;
-  outline-offset: calc(var(--border-thin, 1px) * -1);
-  --color-light: #fff;
-  --color-dark: #000;
-  color: var(--color-dark);
-  background-color: var(--color-light);
+  --padding: 1.5rem;
+  padding: var(--padding);
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  color: #1e293b;
+  border-radius: 0.5rem;
+  outline: 0.125rem solid transparent;
+  outline-offset: -0.125rem;
 }
 
-.box * {
-  color: inherit;
+.box[data-invert=true] {
+  background-color: #1e293b;
+  color: #ffffff;
+  border-color: #1e293b;
 }
 
-.box.invert {
-  color: var(--color-light);
-  background-color: var(--color-dark);
+.box[data-padding=none] {
+  --padding: 0;
 }
 
-.center {
-  box-sizing: content-box;
-  max-inline-size: 60ch;
-  margin-inline: auto;
-  padding-inline-start: var(--s1, 1.5rem);
-  padding-inline-end: var(--s1, 1.5rem);
+.box[data-padding=small] {
+  --padding: 0.75rem;
+}
+
+.box[data-padding=large] {
+  --padding: 3rem;
 }
 
 .cluster {
@@ -110,38 +105,64 @@ h1, h2, h3, h4 {
   align-items: center;
 }
 
-.with-sidebar {
+.cluster[data-justify=start] {
+  justify-content: flex-start;
+}
+
+.cluster[data-justify=between] {
+  justify-content: space-between;
+}
+
+.cluster[data-gap=small] {
+  --space: 0.5rem;
+}
+
+.stack {
+  --space: 1.5rem;
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--gutter, var(--s1, 1.5rem));
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--space);
 }
 
-.with-sidebar > :first-child {
-  flex-basis: 20rem;
-  flex-grow: 1;
+.stack > * {
+  margin-block: 0;
 }
 
-.with-sidebar > :last-child {
-  flex-basis: 0;
-  flex-grow: 999;
-  min-inline-size: 50%;
+.stack[data-space=small] {
+  --space: 0.75rem;
 }
 
-.switcher {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--gutter, var(--s1, 1.5rem));
-  --threshold: 30rem;
+.stack[data-space=large] {
+  --space: 3rem;
 }
 
-.switcher > * {
-  flex-grow: 1;
-  flex-basis: calc((var(--threshold) - 100%) * 999);
+.stack > .push-bottom {
+  margin-block-start: auto;
 }
 
-.switcher > :nth-last-child(n+5),
-.switcher > :nth-last-child(n+5) ~ * {
-  flex-basis: 100%;
+.stack[data-recursive] * {
+  margin-block: 0;
+}
+
+.stack[data-recursive] * + * {
+  margin-block-start: var(--space, 1.5rem);
+}
+
+/* 부모 컴포넌트: '나누는 스택' */
+.stack-divided > * + * {
+  /* 첫 번째를 제외한 모든 자식들의 '위쪽'에만 마진과 테두리를 줍니다! */
+  margin-block-start: 1.5rem;
+  padding-block-start: 1.5rem;
+  border-block-start: 1px solid #e2e8f0;
+}
+
+.center {
+  box-sizing: content-box;
+  max-inline-size: 60ch;
+  margin-inline: auto;
+  padding-inline-start: var(--s1, 1.5rem);
+  padding-inline-end: var(--s1, 1.5rem);
 }
 
 .cover {
@@ -152,126 +173,11 @@ h1, h2, h3, h4 {
   padding: var(--space);
 }
 
-.cover > * {
-  margin-block: var(--s1, 1.5rem);
-}
-
-.cover > :first-child:not(h1) {
-  margin-block-start: 0;
-}
-
-.cover > :last-child:not(h1) {
-  margin-block-end: 0;
-}
-
-.cover > h1 {
+.cover > .center {
   margin-block: auto;
 }
 
-.grid {
-  display: grid;
-  grid-gap: 1rem;
-  --minimum: 20ch;
-}
-
-@supports (width: min(var(--minimum), 100%)) {
-  .grid {
-    grid-template-columns: repeat(auto-fit, minmax(min(var(--minimum), 100%), 1fr));
-  }
-}
-.frame {
-  --n: 16;
-  --d: 9;
-  aspect-ratio: var(--n)/var(--d);
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.frame > img,
-.frame > video {
-  inline-size: 100%;
-  block-size: 100%;
-  object-fit: cover;
-}
-
-.reel {
-  --space: 1rem;
-  --color-light: #fff;
-  --color-dark: #000;
-  --reel-height: auto;
-  --item-width: 25ch;
-  display: flex;
-  block-size: var(--reel-height);
-  overflow-x: auto;
-  overflow-y: hidden;
-  scrollbar-color: var(--color-light) var(--color-dark);
-}
-
-.reel::-webkit-scrollbar {
-  block-size: 1rem;
-}
-
-.reel::-webkit-scrollbar-track {
-  background-color: var(--color-dark);
-}
-
-.reel::-webkit-scrollbar-thumb {
-  background-color: var(--color-dark);
-  background-image: linear-gradient(var(--color-dark) 0, var(--color-dark) 0.25rem, var(--color-light) 0.25rem, var(--color-light) 0.75rem, var(--color-dark) 0.75rem);
-}
-
-.reel > * {
-  flex: 0 0 var(--item-width);
-}
-
-.reel > img {
-  block-size: 100%;
-  flex-basis: auto;
-  width: auto;
-}
-
-.imposter {
-  position: var(--positioning, absolute);
-  inset-block-start: 50%;
-  inset-inline-start: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.imposter.contain {
-  --margin: 0px;
-  overflow: auto;
-  max-inline-size: calc(100% - var(--margin) * 2);
-  max-block-size: calc(100% - var(--margin) * 2);
-}
-
-.icon {
-  height: 0.75em;
-  height: 1cap;
-  width: 0.75em;
-  width: 1cap;
-}
-
-.with-icon {
-  display: inline-flex;
-  align-items: baseline;
-}
-
-.with-icon .icon {
-  margin-inline-end: var(--space, 0.5em);
-}
-
-body {
-  font-family: "Roboto", sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1;
-  background-color: #fff;
-}
-
-.container {
-  width: min(1110px, 100% - 48px);
-  margin-inline: auto;
+.stack {
+  border: 1px solid #000;
 }
 /*# sourceMappingURL=style.css.map */
