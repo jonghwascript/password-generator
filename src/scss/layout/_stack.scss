@@ -1,6 +1,7 @@
 // ----------------------------------
 // The Stack: 세로 레이아웃의 지배자
 // 스택은 수직 여백을 삽입하는 용도 외에는 다른 목적으로 사용되어서는 안 됩니다
+// 자식들의 margin을 각각 관리하지 않고 부모가 수직 간격 규칙을 통제한다
 // ----------------------------------
 
 .stack {
@@ -13,7 +14,7 @@
   justify-content: flex-start;
 
   // 3. 자식 요소들 사이에 일정한 여백 주입
-  gap: var(--space);
+  gap: var(--space, 1.5rem);
 }
 
 // 4. 자식 요소들의 기본 세로 여백 '백지화' (충돌 방지 핵심!)
@@ -28,6 +29,10 @@
 
 .stack[data-space='small'] {
   --space: 0.75rem; // 촘촘한 간격이 필요할 때
+}
+
+.stack[data-space='normal'] {
+  --space: 1rem; //16px
 }
 
 .stack[data-space='large'] {
@@ -56,9 +61,9 @@
   margin-block-start: var(--space, 1.5rem);
 }
 
-/* 부모 컴포넌트: '나누는 스택' */
+//부모 컴포넌트: '나누는 스택'
 .stack-divided > * + * {
-  /* 첫 번째를 제외한 모든 자식들의 '위쪽'에만 마진과 테두리를 줍니다! */
+  //첫 번째를 제외한 모든 자식들의 '위쪽'에만 마진과 테두리를 줍니다!
   margin-block-start: 1.5rem;
   padding-block-start: 1.5rem;
   border-block-start: 1px solid #e2e8f0;

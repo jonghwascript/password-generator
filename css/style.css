@@ -1,18 +1,4 @@
 @charset "UTF-8";
-@font-face {
-  font-family: "Roboto", sans-serif;
-  src: url("../fonts/Roboto-Regular.ttf") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Roboto", sans-serif;
-  src: url("../fonts/Roboto-Bold.ttf") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
 html {
   font-size: 100%;
 }
@@ -68,6 +54,18 @@ h4 {
   max-width: 60ch;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .box {
   --padding: 1.5rem;
   padding: var(--padding);
@@ -93,8 +91,20 @@ h4 {
   --padding: 0.75rem;
 }
 
+.box[data-padding=normal] {
+  --padding: 1rem;
+}
+
 .box[data-padding=large] {
   --padding: 3rem;
+}
+
+.box[data-border=none] {
+  border: none;
+}
+
+.box[data-radius=none] {
+  border-radius: 0;
 }
 
 .cluster {
@@ -117,12 +127,20 @@ h4 {
   --space: 0.5rem;
 }
 
+.cluster[data-gap=normal] {
+  --space: 1rem;
+}
+
+.cluster[data-gap=large] {
+  --space: 1.5rem;
+}
+
 .stack {
   --space: 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  gap: var(--space);
+  gap: var(--space, 1.5rem);
 }
 
 .stack > * {
@@ -131,6 +149,10 @@ h4 {
 
 .stack[data-space=small] {
   --space: 0.75rem;
+}
+
+.stack[data-space=normal] {
+  --space: 1rem;
 }
 
 .stack[data-space=large] {
@@ -149,9 +171,7 @@ h4 {
   margin-block-start: var(--space, 1.5rem);
 }
 
-/* 부모 컴포넌트: '나누는 스택' */
 .stack-divided > * + * {
-  /* 첫 번째를 제외한 모든 자식들의 '위쪽'에만 마진과 테두리를 줍니다! */
   margin-block-start: 1.5rem;
   padding-block-start: 1.5rem;
   border-block-start: 1px solid #e2e8f0;
@@ -177,7 +197,271 @@ h4 {
   margin-block: auto;
 }
 
-.stack {
-  border: 1px solid #000;
+body {
+  background-color: #08070b;
+}
+
+.password-page {
+  padding-inline: 1rem;
+}
+
+/* .center 스타일 뒤에 작성 */
+.password-generator {
+  box-sizing: border-box;
+  inline-size: 100%;
+  max-inline-size: 33.75rem;
+  padding-inline: 0;
+}
+
+.title {
+  font-family: "Space Mono", monospace;
+  font-size: 1rem;
+  color: #817d92;
+  text-align: center;
+}
+
+form.box {
+  background-color: #24232c;
+  color: #e6e5ea;
+}
+form.box label[for=length] {
+  color: #e6e5ea;
+  font-size: 1rem;
+}
+form.box #length-val {
+  color: #a4ffaf;
+  font-family: "Space Mono", monospace;
+  font-size: 1.5rem;
+}
+
+.output-password {
+  background-color: #24232c;
+}
+.output-password .password {
+  color: #54535b;
+  font-size: 1.5rem;
+}
+.output-password .password.active {
+  color: hsl(0, 100%, 100%);
+}
+.output-password .copied {
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+}
+.output-password .copied.active {
+  font-family: "Space Mono", monospace;
+  font-size: 1.125rem;
+  opacity: 1;
+  visibility: visible;
+  color: #a4ffaf;
+}
+.output-password .password-copy {
+  background-color: #24232c;
+  border: 0;
+  cursor: pointer;
+}
+.output-password .password-copy .copy-svg {
+  width: 100%;
+  height: auto;
+  max-width: 1.3125rem;
+}
+.output-password .password-copy:hover .copy-svg path {
+  fill: hsl(0, 100%, 100%);
+}
+
+input[type=range] {
+  -webkit-appearance: none;
+  /* 크롬, 사파리 등 WebKit 브라우저 기본 스타일 제거 */
+  appearance: none;
+  width: 100%;
+  background: transparent;
+  /* 배경을 투명하게 (우리가 직접 트랙을 그릴 예정) */
+  cursor: pointer;
+}
+
+/* 포커스 시 생기는 기본 아웃라인 제거 (필요시 커스텀 포커스 추가) */
+input[type=range]:focus {
+  outline: none;
+}
+
+/* 💡 크롬, 사파리, 엣지용 손잡이 */
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  /* 기본 스타일 제거 (필수) */
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+  background-color: #e6e5ea;
+  border: 1px solid transparent;
+  /* 호버 시 테두리만 남기기 위한 대비책 */
+  margin-top: -10px;
+  /* 트랙 중앙에 맞추기 위해 위로 살짝 당김 */
+  transition: all 0.2s;
+}
+
+/* 💡 파이어폭스용 손잡이 */
+input[type=range]::-moz-range-thumb {
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+  background-color: #e6e5ea;
+  border: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+/* 마우스를 올렸을 때(Hover) / 포커스 시 손잡이 색상 반전 효과 */
+input[type=range]::-webkit-slider-thumb:hover,
+input[type=range]:focus::-webkit-slider-thumb {
+  background-color: #08070b;
+  /* 검은색 배경 */
+  border: 2px solid #a4ffaf;
+  /* 테두리는 네온 그린 */
+}
+
+input[type=range]::-moz-range-thumb:hover,
+input[type=range]:focus::-moz-range-thumb {
+  background-color: #18171f;
+  border: 2px solid #a4ffaf;
+}
+
+/* 💡 크롬, 사파리, 엣지용 트랙 */
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8px;
+  /* CSS 변수를 이용해 지나간 부분(네온 그린)과 안 지나간 부분(검정)을 나눔 */
+  background: linear-gradient(to right, #a4ffaf var(--progress, 50%), #18171f var(--progress, 50%));
+}
+
+/* 💡 파이어폭스용 트랙 */
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 8px;
+  background: linear-gradient(to right, #a4ffaf var(--progress, 50%), #18171f var(--progress, 50%));
+}
+
+fieldset {
+  border: 0;
+}
+fieldset label.cluster {
+  cursor: pointer;
+}
+fieldset label.cluster span {
+  font-size: 1.125rem;
+}
+fieldset label.cluster {
+  /* 1. 평소 상태 (빈 네모 박스) */
+}
+fieldset label.cluster .checkbox-mark {
+  position: relative;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 0.125rem solid #e6e5ea;
+}
+fieldset label.cluster {
+  /* 2. hover 시 테두리 색상 강조 (선택 사항) */
+}
+fieldset label.cluster:hover input:not(:checked) + .checkbox-mark {
+  border-color: #a4ffaf;
+}
+fieldset label.cluster {
+  /* 3. 체크되었을 때의 상태 (배경색 채우기) */
+}
+fieldset label.cluster input[type=checkbox]:checked + .checkbox-mark {
+  background-color: #a4ffaf;
+  /* 네온 그린 */
+  border-color: #a4ffaf;
+}
+fieldset label.cluster {
+  /* 4. 체크마크(V) 모양 그리기 (가상 요소 활용) */
+  /* 체크되었을 때만 ::after를 이용해 체크 표시를 생성합니다. */
+}
+fieldset label.cluster input[type=checkbox]:checked + .checkbox-mark::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-image: url(../images/icon-check.svg);
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+fieldset label.cluster .desc {
+  font-family: "Space Mono", monospace;
+  font-size: clamp(1rem, 0.8rem + 0.5vw, 1.125rem);
+}
+
+.strength {
+  background-color: #18171f;
+}
+.strength #strength-label {
+  font-family: "Space Mono", monospace;
+  color: #817d92;
+  text-transform: uppercase;
+}
+.strength .strength-value {
+  font-family: "Space Mono", monospace;
+  font-size: 1rem;
+  color: #e6e5ea;
+}
+.strength #length-val {
+  font-family: "Space Mono", monospace;
+  font-size: 1.125rem;
+  color: #e6e5ea;
+}
+.strength .box-strength {
+  width: 10px;
+  height: 20px;
+  border: 2px solid #e6e5ea;
+}
+.strength .box-strength.active {
+  background-color: #f8cd65;
+  border-color: #E6E5EA;
+}
+
+.generate-btn {
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+.generate-btn .btn-name {
+  font-family: "Space Mono", monospace;
+  font-size: 1rem;
+  color: #24232c;
+  text-transform: uppercase;
+}
+.generate-btn .btn-arrow {
+  width: 100%;
+  height: auto;
+  max-width: 0.75rem;
+}
+.generate-btn {
+  padding-block: 1rem;
+  padding-inline: clac(5.5rem);
+  background-color: #a4ffaf;
+}
+.generate-btn:hover {
+  border: 2px solid #a4ffaf;
+  background-color: #08070b;
+}
+.generate-btn:hover .btn-name {
+  color: #a4ffaf;
+}
+.generate-btn:hover .btn-arrow path {
+  fill: #a4ffaf;
+}
+
+.bg-green {
+  background-color: #a4ffaf;
+}
+
+.bg-yello {
+  background-color: #f8cd65;
+}
+
+.bg-orange {
+  background-color: #fb7c58;
+}
+
+.bg-red {
+  background-color: #f64a4a;
 }
 /*# sourceMappingURL=style.css.map */

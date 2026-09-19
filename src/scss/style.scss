@@ -1,13 +1,310 @@
-@use 'fonts' as *;
-@use 'reset' as *;
-@use 'variables' as v;
-@use 'mixins' as m; // _mixins.scss 파일이 같은 폴더에 있는 경우
-@use './layout/box' as *;
-@use './layout/cluster' as *;
-@use './layout/stack' as *;
-@use './layout/center' as *;
-@use './layout/cover' as *;
+@use 'fonts'as *;
+@use 'reset'as *;
+@use 'variables'as v;
+@use 'mixins'as *;
+@use 'utilities'as *;
+@use './layout/box'as *;
+@use './layout/cluster'as *;
+@use './layout/stack'as *;
+@use './layout/center'as *;
+@use './layout/cover'as *;
 
-.stack {
-  border: 1px solid #000;
+
+body {
+  background-color: v.$Grey-950;
+}
+
+//padding-inline은 가로쓰기에서 왼쪽과 오른쪽 안쪽 여백입니다. 1rem은 루트 글자 크기 기준이며, 기본 설정에서는 16px입니다. .cover보다 뒤에 작성하므로 기존 좌우 24px 패딩을 덮어씁니다.
+.password-page {
+  padding-inline: 1rem;
+}
+
+/* .center 스타일 뒤에 작성 */
+.password-generator {
+  box-sizing: border-box;
+  inline-size: 100%; //부모의 사용 가능한 너비를 채웁니다.
+  max-inline-size: 33.75rem; //기본 설정에서 최대 너비를 540px로 제한합니다.
+  padding-inline: 0; //.center의 좌우 패딩을 없애 바깥 여백과 중복되지 않게 합니다.
+}
+
+.title {
+  font-family: v.$font-primary;
+  font-size: 1rem; //16px
+  color: v.$Grey-600;
+  text-align: center;
+}
+
+
+form.box {
+  background-color: v.$Grey-800;
+  color: v.$Grey-200;
+
+  label[for=length] {
+    color: v.$Grey-200;
+    font-size: 1rem;
+  }
+
+  #length-val {
+    color: v.$Green-200;
+    font-family: v.$font-primary;
+    font-size: 1.5rem;
+  }
+}
+
+
+.output-password {
+  background-color: v.$Grey-800;
+
+  .password {
+    color: v.$Grey-700;
+    font-size: 1.5rem;
+
+    &.active {
+      color: v.$White;
+    }
+  }
+
+  .copied {
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+
+    &.active {
+      font-family: v.$font-primary;
+      font-size: 1.125rem;
+      opacity: 1;
+      visibility: visible;
+      color: v.$Green-200;
+    }
+  }
+
+  .password-copy {
+    background-color: v.$Grey-800;
+    border: 0;
+    cursor: pointer;
+
+    .copy-svg {
+      width: 100%;
+      height: auto;
+      max-width: 1.3125rem;
+    }
+
+    &:hover {
+      .copy-svg path {
+        fill: v.$White;
+      }
+    }
+  }
+}
+
+// input[type="range"]
+input[type="range"] {
+  -webkit-appearance: none;
+  /* 크롬, 사파리 등 WebKit 브라우저 기본 스타일 제거 */
+  appearance: none;
+  width: 100%;
+  background: transparent;
+  /* 배경을 투명하게 (우리가 직접 트랙을 그릴 예정) */
+  cursor: pointer;
+}
+
+/* 포커스 시 생기는 기본 아웃라인 제거 (필요시 커스텀 포커스 추가) */
+input[type="range"]:focus {
+  outline: none;
+}
+
+/* 💡 크롬, 사파리, 엣지용 손잡이 */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  /* 기본 스타일 제거 (필수) */
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+  background-color: v.$Grey-200;
+  border: 1px solid transparent;
+  /* 호버 시 테두리만 남기기 위한 대비책 */
+  margin-top: -10px;
+  /* 트랙 중앙에 맞추기 위해 위로 살짝 당김 */
+  transition: all 0.2s;
+}
+
+/* 💡 파이어폭스용 손잡이 */
+input[type="range"]::-moz-range-thumb {
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+  background-color: v.$Grey-200;
+  border: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+/* 마우스를 올렸을 때(Hover) / 포커스 시 손잡이 색상 반전 효과 */
+input[type="range"]::-webkit-slider-thumb:hover,
+input[type="range"]:focus::-webkit-slider-thumb {
+  background-color: v.$Grey-950;
+  /* 검은색 배경 */
+  border: 2px solid #a4ffaf;
+  /* 테두리는 네온 그린 */
+}
+
+input[type="range"]::-moz-range-thumb:hover,
+input[type="range"]:focus::-moz-range-thumb {
+  background-color: #18171f;
+  border: 2px solid #a4ffaf;
+}
+
+/* 💡 크롬, 사파리, 엣지용 트랙 */
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8px;
+  /* CSS 변수를 이용해 지나간 부분(네온 그린)과 안 지나간 부분(검정)을 나눔 */
+  background: linear-gradient(to right,
+      #a4ffaf var(--progress, 50%),
+      #18171f var(--progress, 50%));
+}
+
+/* 💡 파이어폭스용 트랙 */
+input[type="range"]::-moz-range-track {
+  width: 100%;
+  height: 8px;
+  background: linear-gradient(to right,
+      #a4ffaf var(--progress, 50%),
+      #18171f var(--progress, 50%));
+}
+
+
+fieldset {
+  border: 0;
+
+  label.cluster {
+    cursor: pointer;
+
+    span {
+      font-size: 1.125rem;
+    }
+
+    /* 1. 평소 상태 (빈 네모 박스) */
+    .checkbox-mark {
+      position: relative;
+      width: 1.25rem;
+      height: 1.25rem;
+      border: 0.125rem solid v.$Grey-200;
+    }
+
+    /* 2. hover 시 테두리 색상 강조 (선택 사항) */
+    &:hover input:not(:checked)+.checkbox-mark {
+      border-color: v.$Green-200;
+    }
+
+    /* 3. 체크되었을 때의 상태 (배경색 채우기) */
+    input[type="checkbox"]:checked+.checkbox-mark {
+      background-color: v.$Green-200;
+      /* 네온 그린 */
+      border-color: v.$Green-200;
+    }
+
+    /* 4. 체크마크(V) 모양 그리기 (가상 요소 활용) */
+    /* 체크되었을 때만 ::after를 이용해 체크 표시를 생성합니다. */
+    input[type="checkbox"]:checked+.checkbox-mark::after {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 100%;
+      background-image: url(../images/icon-check.svg);
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+
+    .desc {
+      font-family: v.$font-primary;
+      // font-size: 1rem;
+      font-size: clamp(1rem, 0.8rem + .5vw, 1.125rem);
+    }
+  }
+
+}
+
+.strength {
+  background-color: v.$Grey-850;
+
+  #strength-label {
+    font-family: v.$font-primary;
+    color: v.$Grey-600;
+    text-transform: uppercase;
+  }
+
+  .strength-value {
+    font-family: v.$font-primary;
+    font-size: 1rem; //16px
+    color: v.$Grey-200;
+  }
+  
+  #length-val {
+    font-family: v.$font-primary;
+    font-size: 1.125rem; //18px
+    color: v.$Grey-200;
+  }
+  
+  .box-strength {
+    width: 10px;
+    height: 20px;
+    border: 2px solid v.$Grey-200;
+
+    &.active {
+      background-color: v.$Yello-300;
+      border-color: #E6E5EA;
+    }
+  }
+}
+
+.generate-btn {
+  cursor: pointer;
+  border: 2px solid transparent;
+
+  .btn-name {
+    font-family: v.$font-primary;
+    font-size: 1rem; //16px
+    color: v.$Grey-800;
+    text-transform: uppercase;
+  }
+
+  .btn-arrow {
+    width: 100%;
+    height: auto;
+    max-width: 0.75rem;
+  }
+
+  padding-block: 1rem;
+  padding-inline: clac(6.5rem - 1rem);
+  background-color: v.$Green-200;
+
+  &:hover {
+    border: 2px solid v.$Green-200;
+    background-color: v.$Grey-950;
+
+    .btn-name {
+      color: v.$Green-200;
+    }
+
+    .btn-arrow path {
+      fill: v.$Green-200;
+    }
+  }
+}
+
+
+.bg-green {
+  background-color: v.$Green-200;
+}
+
+.bg-yello {
+  background-color: v.$Yello-300;
+}
+
+.bg-orange {
+  background-color: v.$Orange-400;
+}
+
+.bg-red {
+  background-color: v.$Red-500;
 }

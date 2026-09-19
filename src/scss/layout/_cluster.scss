@@ -24,5 +24,13 @@
 }
 
 .cluster[data-gap='small'] {
-  --space: 0.5rem;
+  --space: 0.5rem; //8px;
+}
+
+.cluster[data-gap='normal'] {
+  --space: 1rem; //16px;
+}
+
+.cluster[data-gap='large'] {
+  --space: 1.5rem;
 }

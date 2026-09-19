@@ -1,27 +1,32 @@
 @charset "UTF-8";
 
-$font-primary: 'Roboto', sans-serif;
+$font-primary: 'Space Mono', monospace;
 
-$font-size-preset1: 56px;
-$font-size-preset2: 16px;
-$font-size-preset3: 12px;
+$Green-200: #a4ffaf;
+$Green-400: hsl(172, 67%, 45%);
+$Green-900: hsl(183, 100%, 15%);
 
-$grey-100: #e7eaee;
-$grey-200: #cfcfcf;
-$grey-300: #a3aab4;
-$grey-400: #676d7e;
-$grey-500: #48556a;
+$Yello-300: #f8cd65;
+$Orange-400: #fb7c58;
+$Red-500: #f64a4a;
 
-$bg-white: #ffffff;
-$bg-gray: #949494;
-$bg-blue-800: #242742;
-$bg-blue-700: #36384d;
-$bg-red: #ff6155;
+$Grey-950: #08070b;
+$Grey-900: #14131b;
+$Grey-850: #18171f;
+$Grey-800: #24232c;
+$Grey-700: #54535b;
+$Grey-600: #817d92;
+$Grey-500: hsl(186, 14%, 43%);
+$Grey-400: hsl(184, 14%, 56%);
+$Grey-200: #e6e5ea;
+$Grey-50: hsl(189, 47%, 97%);
+
+$White: hsl(0, 100%, 100%);
 
 $bg-gradient: linear-gradient(
   0deg,
-  rgba(255, 106, 58, 1) 0%,
-  rgba(255, 82, 123, 1) 100%
+  rgba(20, 19, 17, 1) 0%,
+  rgba(8, 7, 11, 1) 100%
 );
 
 // 🌟 새 챌린지를 시작할 때 README의 "Layout" 섹션 값으로 아래 두 숫자만 교체하면 된다.
