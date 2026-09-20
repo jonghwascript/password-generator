@@ -413,7 +413,7 @@ fieldset label.cluster .desc {
 }
 .strength .box-strength.active {
   background-color: #f8cd65;
-  border-color: #E6E5EA;
+  border-color: #e6e5ea;
 }
 
 .generate-btn {
@@ -433,7 +433,7 @@ fieldset label.cluster .desc {
 }
 .generate-btn {
   padding-block: 1rem;
-  padding-inline: 5.5rem;
+  padding-inline: 1rem;
   background-color: #a4ffaf;
 }
 .generate-btn:hover {

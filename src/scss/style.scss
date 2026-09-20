@@ -1,14 +1,13 @@
-@use 'fonts'as *;
-@use 'reset'as *;
-@use 'variables'as v;
-@use 'mixins'as *;
-@use 'utilities'as *;
-@use './layout/box'as *;
-@use './layout/cluster'as *;
-@use './layout/stack'as *;
-@use './layout/center'as *;
-@use './layout/cover'as *;
-
+@use 'fonts' as *;
+@use 'reset' as *;
+@use 'variables' as v;
+@use 'mixins' as *;
+@use 'utilities' as *;
+@use './layout/box' as *;
+@use './layout/cluster' as *;
+@use './layout/stack' as *;
+@use './layout/center' as *;
+@use './layout/cover' as *;
 
 body {
   background-color: v.$Grey-950;
@@ -34,12 +33,11 @@ body {
   text-align: center;
 }
 
-
 form.box {
   background-color: v.$Grey-800;
   color: v.$Grey-200;
 
-  label[for=length] {
+  label[for='length'] {
     color: v.$Grey-200;
     font-size: clamp(1rem, 0.9278rem + 0.3082vw, 1.125rem);
   }
@@ -50,7 +48,6 @@ form.box {
     font-size: 1.5rem;
   }
 }
-
 
 .output-password {
   background-color: v.$Grey-800;
@@ -97,7 +94,7 @@ form.box {
 }
 
 // input[type="range"]
-input[type="range"] {
+input[type='range'] {
   -webkit-appearance: none;
   /* 크롬, 사파리 등 WebKit 브라우저 기본 스타일 제거 */
   appearance: none;
@@ -108,12 +105,12 @@ input[type="range"] {
 }
 
 /* 포커스 시 생기는 기본 아웃라인 제거 (필요시 커스텀 포커스 추가) */
-input[type="range"]:focus {
+input[type='range']:focus {
   outline: none;
 }
 
 /* 💡 크롬, 사파리, 엣지용 손잡이 */
-input[type="range"]::-webkit-slider-thumb {
+input[type='range']::-webkit-slider-thumb {
   -webkit-appearance: none;
   /* 기본 스타일 제거 (필수) */
   height: 28px;
@@ -128,7 +125,7 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 /* 💡 파이어폭스용 손잡이 */
-input[type="range"]::-moz-range-thumb {
+input[type='range']::-moz-range-thumb {
   height: 28px;
   width: 28px;
   border-radius: 50%;
@@ -138,39 +135,42 @@ input[type="range"]::-moz-range-thumb {
 }
 
 /* 마우스를 올렸을 때(Hover) / 포커스 시 손잡이 색상 반전 효과 */
-input[type="range"]::-webkit-slider-thumb:hover,
-input[type="range"]:focus::-webkit-slider-thumb {
+input[type='range']::-webkit-slider-thumb:hover,
+input[type='range']:focus::-webkit-slider-thumb {
   background-color: v.$Grey-950;
   /* 검은색 배경 */
   border: 2px solid #a4ffaf;
   /* 테두리는 네온 그린 */
 }
 
-input[type="range"]::-moz-range-thumb:hover,
-input[type="range"]:focus::-moz-range-thumb {
+input[type='range']::-moz-range-thumb:hover,
+input[type='range']:focus::-moz-range-thumb {
   background-color: #18171f;
   border: 2px solid #a4ffaf;
 }
 
 /* 💡 크롬, 사파리, 엣지용 트랙 */
-input[type="range"]::-webkit-slider-runnable-track {
+input[type='range']::-webkit-slider-runnable-track {
   width: 100%;
   height: 8px;
   /* CSS 변수를 이용해 지나간 부분(네온 그린)과 안 지나간 부분(검정)을 나눔 */
-  background: linear-gradient(to right,
-      #a4ffaf var(--progress, 50%),
-      #18171f var(--progress, 50%));
+  background: linear-gradient(
+    to right,
+    #a4ffaf var(--progress, 50%),
+    #18171f var(--progress, 50%)
+  );
 }
 
 /* 💡 파이어폭스용 트랙 */
-input[type="range"]::-moz-range-track {
+input[type='range']::-moz-range-track {
   width: 100%;
   height: 8px;
-  background: linear-gradient(to right,
-      #a4ffaf var(--progress, 50%),
-      #18171f var(--progress, 50%));
+  background: linear-gradient(
+    to right,
+    #a4ffaf var(--progress, 50%),
+    #18171f var(--progress, 50%)
+  );
 }
-
 
 fieldset {
   border: 0;
@@ -182,7 +182,7 @@ fieldset {
       font-size: 1.125rem;
     }
 
-    // 1. 평소 상태 (빈 네모 박스) 
+    // 1. 평소 상태 (빈 네모 박스)
     .checkbox-mark {
       position: relative;
       width: 1.25rem;
@@ -190,28 +190,28 @@ fieldset {
       border: 0.125rem solid v.$Grey-200;
     }
 
-    // 2. hover 시 테두리 색상 강조 (선택 사항) 
-    &:hover input:not(:checked)+.checkbox-mark {
+    // 2. hover 시 테두리 색상 강조 (선택 사항)
+    &:hover input:not(:checked) + .checkbox-mark {
       border-color: v.$Green-200;
     }
 
-    // 3. 체크되었을 때의 상태 (배경색 채우기) 
-    input[type="checkbox"]:checked+.checkbox-mark {
+    // 3. 체크되었을 때의 상태 (배경색 채우기)
+    input[type='checkbox']:checked + .checkbox-mark {
       background-color: v.$Green-200;
       border-color: v.$Green-200;
     }
 
     // 체크박스 input을 sr-only로 숨겼기 때문에 Tab으로 이동해도 화면에서는 현재 선택 위치를 알기 어렵습니다.
     // 표시용 박스에 포커스를 전달하세요
-    input[type='checkbox']:focus-visible+.checkbox-mark {
+    input[type='checkbox']:focus-visible + .checkbox-mark {
       outline: 2px solid v.$Green-200;
       outline-offset: 3px;
     }
 
     /* 4. 체크마크(V) 모양 그리기 (가상 요소 활용) */
     /* 체크되었을 때만 ::after를 이용해 체크 표시를 생성합니다. */
-    input[type="checkbox"]:checked+.checkbox-mark::after {
-      content: "";
+    input[type='checkbox']:checked + .checkbox-mark::after {
+      content: '';
       display: block;
       width: 100%;
       height: 100%;
@@ -225,7 +225,6 @@ fieldset {
       font-size: clamp(1rem, 0.9278rem + 0.3082vw, 1.125rem);
     }
   }
-
 }
 
 .strength {
@@ -262,7 +261,7 @@ fieldset {
 
     &.active {
       background-color: v.$Yello-300;
-      border-color: #E6E5EA;
+      border-color: #e6e5ea;
     }
   }
 }
@@ -285,7 +284,7 @@ fieldset {
   }
 
   padding-block: 1rem;
-  padding-inline: calc(6.5rem - 1rem);
+  padding-inline: 1rem;
   background-color: v.$Green-200;
 
   &:hover {
@@ -301,7 +300,6 @@ fieldset {
     }
   }
 }
-
 
 .bg-green {
   background-color: v.$Green-200;
@@ -319,8 +317,8 @@ fieldset {
   background-color: v.$Red-500;
 }
 
-//복사·생성 버튼은 hover 스타일은 있지만 별도 focus 스타일이 없습니다. 
-//브라우저 기본 포커스가 표시될 수 있으므로 “포커스가 전혀 없다”고 단정할 수는 없습니다. 
+//복사·생성 버튼은 hover 스타일은 있지만 별도 focus 스타일이 없습니다.
+//브라우저 기본 포커스가 표시될 수 있으므로 “포커스가 전혀 없다”고 단정할 수는 없습니다.
 //명확하게 통일하려면 다음을 추가할 수 있습니다.
 .password-copy:focus-visible,
 .generate-btn:focus-visible {
