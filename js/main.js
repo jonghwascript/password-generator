@@ -81,6 +81,8 @@ $(function () {
       // 복사 대기 중 새 암호 생성 또는 재클릭 시 이전 결과를 표시하지 않습니다.
       if (request !== copyRequest) return;
       $('.copied').addClass('active');
+      // Announce successful clipboard copying to screen readers.
+      $('#copy-status').text('Password copied to clipboard.');
       copyTimer = setTimeout(() => $('.copied').removeClass('active'), 2000);
     } catch {
       if (request !== copyRequest) return;

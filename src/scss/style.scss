@@ -41,7 +41,7 @@ form.box {
 
   label[for=length] {
     color: v.$Grey-200;
-    font-size: 1rem;
+    font-size: clamp(1rem, 0.9278rem + 0.3082vw, 1.125rem);
   }
 
   #length-val {
@@ -57,7 +57,9 @@ form.box {
 
   .password {
     color: v.$Grey-700;
-    font-size: 1.5rem;
+    font-family: v.$font-primary;
+    font-style: 700;
+    font-size: clamp(1.5rem, 1.25vw + 1.25rem, 2rem);
 
     &.active {
       color: v.$White;
@@ -65,15 +67,12 @@ form.box {
   }
 
   .copied {
-    opacity: 0;
-    visibility: hidden;
-    transition: 0.3s;
+    display: none;
 
     &.active {
       font-family: v.$font-primary;
       font-size: 1.125rem;
-      opacity: 1;
-      visibility: visible;
+      display: block;
       color: v.$Green-200;
     }
   }
@@ -183,7 +182,7 @@ fieldset {
       font-size: 1.125rem;
     }
 
-    /* 1. 평소 상태 (빈 네모 박스) */
+    // 1. 평소 상태 (빈 네모 박스) 
     .checkbox-mark {
       position: relative;
       width: 1.25rem;
@@ -191,16 +190,22 @@ fieldset {
       border: 0.125rem solid v.$Grey-200;
     }
 
-    /* 2. hover 시 테두리 색상 강조 (선택 사항) */
+    // 2. hover 시 테두리 색상 강조 (선택 사항) 
     &:hover input:not(:checked)+.checkbox-mark {
       border-color: v.$Green-200;
     }
 
-    /* 3. 체크되었을 때의 상태 (배경색 채우기) */
+    // 3. 체크되었을 때의 상태 (배경색 채우기) 
     input[type="checkbox"]:checked+.checkbox-mark {
       background-color: v.$Green-200;
-      /* 네온 그린 */
       border-color: v.$Green-200;
+    }
+
+    // 체크박스 input을 sr-only로 숨겼기 때문에 Tab으로 이동해도 화면에서는 현재 선택 위치를 알기 어렵습니다.
+    // 표시용 박스에 포커스를 전달하세요
+    input[type='checkbox']:focus-visible+.checkbox-mark {
+      outline: 2px solid v.$Green-200;
+      outline-offset: 3px;
     }
 
     /* 4. 체크마크(V) 모양 그리기 (가상 요소 활용) */
@@ -217,8 +222,7 @@ fieldset {
 
     .desc {
       font-family: v.$font-primary;
-      // font-size: 1rem;
-      font-size: clamp(1rem, 0.8rem + .5vw, 1.125rem);
+      font-size: clamp(1rem, 0.9278rem + 0.3082vw, 1.125rem);
     }
   }
 
@@ -226,29 +230,35 @@ fieldset {
 
 .strength {
   background-color: v.$Grey-850;
+  padding-block: 1rem;
+  padding-inline: clamp(1rem, 0.4222rem + 2.4653vw, 2rem);
 
   #strength-label {
     font-family: v.$font-primary;
+    font-size: clamp(1rem, 0.9278rem + 0.3082vw, 1.125rem);
     color: v.$Grey-600;
     text-transform: uppercase;
   }
 
   .strength-value {
     font-family: v.$font-primary;
-    font-size: 1rem; //16px
+    font-size: clamp(1rem, 0.7111rem + 1.2327vw, 1.5rem);
     color: v.$Grey-200;
+    // 텍스트가 없어도 한 줄 높이를 확보합니다.
+    line-height: 1.5;
+    min-block-size: 1.5em;
   }
-  
+
   #length-val {
     font-family: v.$font-primary;
     font-size: 1.125rem; //18px
     color: v.$Grey-200;
   }
-  
+
   .box-strength {
-    width: 10px;
-    height: 20px;
-    border: 2px solid v.$Grey-200;
+    width: 0.625rem;
+    height: 1.25rem;
+    border: 0.125rem solid v.$Grey-200;
 
     &.active {
       background-color: v.$Yello-300;
@@ -275,7 +285,7 @@ fieldset {
   }
 
   padding-block: 1rem;
-  padding-inline: clac(6.5rem - 1rem);
+  padding-inline: calc(6.5rem - 1rem);
   background-color: v.$Green-200;
 
   &:hover {
@@ -307,4 +317,13 @@ fieldset {
 
 .bg-red {
   background-color: v.$Red-500;
+}
+
+//복사·생성 버튼은 hover 스타일은 있지만 별도 focus 스타일이 없습니다. 
+//브라우저 기본 포커스가 표시될 수 있으므로 “포커스가 전혀 없다”고 단정할 수는 없습니다. 
+//명확하게 통일하려면 다음을 추가할 수 있습니다.
+.password-copy:focus-visible,
+.generate-btn:focus-visible {
+  outline: 2px solid v.$Green-200;
+  outline-offset: 4px;
 }
