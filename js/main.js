@@ -16,24 +16,24 @@ $(function () {
     const min = Number($target.attr('min') ?? 0);
     const max = Number($target.attr('max') ?? 100);
 
-    // 현재 값이 몇 % 위치인지 계산
+    // Calculate the current value as a percentage of the slider range.
     const percentage = ((value - min) / (max - min)) * 100;
 
-    // input 요소에 직접 CSS 변수(--progress)를 꽂아줌
+    // Set the --progress CSS custom property on the input element.
     $target.css('--progress', `${percentage}%`);
 
-    // (선택) 숫자를 실시간으로 변경해주기
+    // Update the displayed length in real time.
     $lengthVal.text(value);
   }
 
-  // 1. 처음 로딩될 때 슬라이더 배경색 1번 세팅
+  // Initialize the slider background and displayed length on page load.
   updateSliderBackground();
 
-  // 2. 마우스로 드래그할 때마다 실시간으로 함수 실행
+  // Update the slider background and length whenever the input changes.
   $slider.on('input', updateSliderBackground);
 
   $form.on('submit', function (event) {
-    // 1. 브라우저의 기본 폼 제출 동작(페이지 새로고침)을 차단합니다.
+    // Prevent the default form submission from reloading the page.
     event.preventDefault();
 
     const groups = [];
@@ -44,16 +44,16 @@ $(function () {
 
     const length = Number($slider.val());
     if (!Number.isInteger(length) || length < 1) {
-      alert('암호 길이는 1 이상이어야 합니다.');
+      alert('Password length must be a whole number of at least 1.');
       return;
     }
     if (groups.length === 0) {
-      // 아무 옵션도 선택하지 않으면 소문자만 사용합니다.
+      // Use only lowercase letters when no options are selected.
       groups.push('abcdefghijklmnopqrstuvwxyz');
     }
     if (length < groups.length) {
       alert(
-        `암호 길이는 선택한 문자 종류 수(${groups.length}) 이상이어야 합니다.`,
+        `Password length must be at least ${groups.length} to include each selected character type.`,
       );
       return;
     }
@@ -69,7 +69,7 @@ $(function () {
   $copied.on('click', async function () {
     const $password = $('.password');
     if (!$password.hasClass('active') || !$password.text()) {
-      alert('먼저 암호를 생성해 주세요.');
+      alert('Please generate a password first.');
       return;
     }
 
@@ -78,7 +78,7 @@ $(function () {
     $('.copied').removeClass('active');
     try {
       await navigator.clipboard.writeText($password.text());
-      // 복사 대기 중 새 암호 생성 또는 재클릭 시 이전 결과를 표시하지 않습니다.
+      // Ignore stale results if a new password or copy request was created.
       if (request !== copyRequest) return;
       $('.copied').addClass('active');
       // Announce successful clipboard copying to screen readers.
@@ -86,11 +86,11 @@ $(function () {
       copyTimer = setTimeout(() => $('.copied').removeClass('active'), 2000);
     } catch {
       if (request !== copyRequest) return;
-      alert('클립보드에 복사하지 못했습니다. 브라우저 권한을 확인해 주세요.');
+      alert('Could not copy the password to the clipboard. Please check your browser permissions.');
     }
   });
 
-  // UI 표시용 단계이며 실제 공격에 대한 안전성을 보증하는 점수는 아닙니다.
+  // These UI strength levels do not guarantee resistance to real attacks.
   function updateStrength(password) {
     const types = [/[A-Z]/, /[a-z]/, /[0-9]/, /[^A-Za-z0-9]/].filter(
       (pattern) => pattern.test(password),
@@ -109,7 +109,7 @@ $(function () {
       .addClass(colors[level]);
   }
 
-  // 나머지 연산의 편향을 피하면서 암호학적 난수로 인덱스를 선택합니다.
+  // Select an index using cryptographic randomness without modulo bias.
   function randomIndex(max) {
     const range = 2 ** 32;
     const limit = range - (range % max);
@@ -122,13 +122,13 @@ $(function () {
 
   function generatePassword(length, groups) {
     const chars = groups.join('');
-    // 선택한 종류마다 최소 한 글자를 포함합니다.
+    // Include at least one character from each selected group.
     const password = groups.map((group) => group[randomIndex(group.length)]);
     while (password.length < length) {
       password.push(chars[randomIndex(chars.length)]);
     }
 
-    // 필수 문자의 위치가 고정되지 않도록 Fisher–Yates 방식으로 섞습니다.
+    // Use a Fisher–Yates shuffle to randomize required character positions.
     for (let i = password.length - 1; i > 0; i--) {
       const j = randomIndex(i + 1);
       [password[i], password[j]] = [password[j], password[i]];
