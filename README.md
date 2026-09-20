@@ -28,7 +28,7 @@ The challenge is to build a responsive password generator with configurable char
 
 The current implementation lets users:
 
-- Choose a password length from 1 to 20 characters. A slider value of zero produces a validation message.
+- Choose a password length from 1 to 20 characters.
 - Include uppercase letters, lowercase letters, numbers, and symbols.
 - Generate a lowercase-only password when no character types are selected.
 - Include at least one character from every selected type. The requested length must accommodate those types.

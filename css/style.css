@@ -240,7 +240,7 @@ form.box #length-val {
 .output-password .password {
   color: #54535b;
   font-family: "Space Mono", monospace;
-  font-style: 700;
+  font-weight: 700;
   font-size: clamp(1.5rem, 1.25vw + 1.25rem, 2rem);
 }
 .output-password .password.active {

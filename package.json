@@ -1,7 +1,7 @@
 {
-  "name": "newsletter-sign-up-with-success-message",
+  "name": "password-generator",
   "version": "1.0.0",
-  "description": "![Design preview for the Newsletter sign-up form with success message coding challenge](./preview.jpg)",
+  "description": "Password generator with configurable character types, strength feedback, and clipboard copying for the Frontend Mentor challenge.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

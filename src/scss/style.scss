@@ -58,7 +58,7 @@ form.box {
   .password {
     color: v.$Grey-700;
     font-family: v.$font-primary;
-    font-style: 700;
+    font-weight: 700;
     font-size: clamp(1.5rem, 1.25vw + 1.25rem, 2rem);
 
     &.active {
