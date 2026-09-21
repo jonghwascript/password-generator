@@ -205,7 +205,6 @@ body {
   padding-inline: 1rem;
 }
 
-/* .center 스타일 뒤에 작성 */
 .password-generator {
   box-sizing: border-box;
   inline-size: 100%;
@@ -242,6 +241,8 @@ form.box #length-val {
   font-family: "Space Mono", monospace;
   font-weight: 700;
   font-size: clamp(1.5rem, 1.25vw + 1.25rem, 2rem);
+  min-width: 0;
+  word-break: break-all;
 }
 .output-password .password.active {
   color: hsl(0, 100%, 100%);

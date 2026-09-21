@@ -23,6 +23,7 @@
   </head>
 
   <body>
+    <!-- Centered on the screen : Cover + Center -->
     <main id="main" class="password-page cover">
       <section class="password-generator stack center" data-space="normal">
         <h1 class="title">Password Generator</h1>
@@ -33,6 +34,7 @@
           data-padding="normal"
         >
           <div class="cluster" data-justify="between">
+            <!-- The `<output>` element is suitable for generated passwords or password strength calculation results. Provide a label to indicate its purpose. -->
             <output class="password">P4$5W0rD!</output>
             <div class="cluster">
               <span class="copied">COPIED</span>
@@ -56,6 +58,7 @@
             </div>
           </div>
         </div>
+        <!-- Group the configuration and creation actions within a `<form>`, and use `<fieldset>` and `<legend>` to describe the related checkboxes. -->
         <form
           class="stack box form-password"
           data-border="none"
