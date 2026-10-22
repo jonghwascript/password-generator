@@ -18,8 +18,13 @@
   <body>
     <!-- Centered on the screen : Cover + Center -->
     <main id="main" class="c-page l-cover">
-      <section class="c-generator l-stack l-center">
-        <h1 class="c-generator__title">Password Generator</h1>
+      <section
+        class="c-generator l-stack l-center"
+        aria-labelledby="generator-title"
+      >
+        <h1 id="generator-title" class="c-generator__title">
+          Password Generator
+        </h1>
         <div class="c-output l-box" data-border="none" data-radius="none">
           <div class="l-cluster" data-justify="between">
             <!-- The `<output>` element is suitable for generated passwords or password strength calculation results. Provide a label to indicate its purpose. -->

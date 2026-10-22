@@ -96,6 +96,8 @@ $(function () {
     copyRequest++;
     clearTimeout(copyTimer);
     $('#copied').removeClass('is-visible');
+    // Clear the status so the next message is a change that screen readers announce again.
+    $('#copy-status').text('');
     return copyRequest;
   }
 

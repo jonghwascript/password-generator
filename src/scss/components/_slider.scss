@@ -19,7 +19,7 @@
   // 크롬, 사파리, 엣지용 트랙
   &::-webkit-slider-runnable-track {
     width: 100%;
-    height: 8px;
+    height: 0.5rem; // 8px
     // CSS 변수를 이용해 지나간 부분(네온 그린)과 안 지나간 부분(검정)을 나눔
     background: linear-gradient(
       to right,
@@ -31,7 +31,7 @@
   // 파이어폭스용 트랙
   &::-moz-range-track {
     width: 100%;
-    height: 8px;
+    height: 0.5rem; // 8px
     background: linear-gradient(
       to right,
       $green-200 var(--progress, 50%),
@@ -42,9 +42,9 @@
   // 크롬, 사파리, 엣지용 손잡이
   &::-webkit-slider-thumb {
     -webkit-appearance: none; // 기본 스타일 제거 (필수)
-    width: 28px;
-    height: 28px;
-    margin-top: -10px; // 트랙 중앙에 맞추기 위해 위로 당김
+    width: 1.75rem; // 28px
+    height: 1.75rem; // 28px
+    margin-top: -0.625rem; // -10px, (트랙 0.5rem − 손잡이 1.75rem) / 2
     border: 1px solid transparent; // 호버 시 테두리만 남기기 위한 대비책
     border-radius: 50%;
     background-color: $grey-200;
@@ -53,8 +53,8 @@
 
   // 파이어폭스용 손잡이
   &::-moz-range-thumb {
-    width: 28px;
-    height: 28px;
+    width: 1.75rem; // 28px
+    height: 1.75rem; // 28px
     border: 2px solid transparent;
     border-radius: 50%;
     background-color: $grey-200;
