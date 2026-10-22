@@ -216,14 +216,14 @@ input[type='range']::-webkit-slider-thumb:hover,
 input[type='range']:focus::-webkit-slider-thumb {
   background-color: v.$Grey-950;
   /* 검은색 배경 */
-  border: 2px solid #a4ffaf;
+  border: 2px solid v.$Green-200;
   /* 테두리는 네온 그린 */
 }
 
 input[type='range']::-moz-range-thumb:hover,
 input[type='range']:focus::-moz-range-thumb {
-  background-color: #18171f;
-  border: 2px solid #a4ffaf;
+  background-color: v.$Grey-850;
+  border: 2px solid v.$Green-200;
 }
 
 /* 💡 크롬, 사파리, 엣지용 트랙 */
@@ -233,8 +233,8 @@ input[type='range']::-webkit-slider-runnable-track {
   /* CSS 변수를 이용해 지나간 부분(네온 그린)과 안 지나간 부분(검정)을 나눔 */
   background: linear-gradient(
     to right,
-    #a4ffaf var(--progress, 50%),
-    #18171f var(--progress, 50%)
+    v.$Green-200 var(--progress, 50%),
+    v.$Grey-850 var(--progress, 50%)
   );
 }
 
@@ -244,8 +244,8 @@ input[type='range']::-moz-range-track {
   height: 8px;
   background: linear-gradient(
     to right,
-    #a4ffaf var(--progress, 50%),
-    #18171f var(--progress, 50%)
+    v.$Green-200 var(--progress, 50%),
+    v.$Grey-850 var(--progress, 50%)
   );
 }
 
@@ -367,7 +367,7 @@ fieldset {
 
     &.active {
       background-color: v.$Yello-300;
-      border-color: #e6e5ea;
+      border-color: v.$Grey-200;
     }
   }
 }
