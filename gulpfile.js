@@ -1,7 +1,6 @@
 const gulp = require('gulp');
 const sass = require('gulp-sass')(require('sass'));
 const sourcemaps = require('gulp-sourcemaps');
-const cleanCSS = require('gulp-clean-css'); // CSS 압축용
 
 // 포맷 대상 파일
 const PRETTIER_GLOBS = ['src/scss/**/*.scss', '*.html', 'gulpfile.js'];
