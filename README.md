@@ -46,17 +46,17 @@ Passwords use `crypto.getRandomValues()` for random selection. The strength disp
 
 ### Requirement status
 
-The following status is based on source review, not a completed browser acceptance test.
+The following status is based on source review and layout measurements, not a completed browser acceptance test.
 
 | Requirement | Status | Remaining work |
 | --- | --- | --- |
 | Generate passwords using selected options | Implemented | Selected types are included; no selection defaults to lowercase. |
 | Copy the generated password to the clipboard | Implemented; browser verification pending | Verify successful copying and permission failures in actual browsers. |
 | Display a password strength rating | Implemented | Four levels are shown using the simple rule described above. |
-| Adapt the interface to different screen sizes | Implemented in CSS; visual verification pending | Check narrow screens, long passwords, copy feedback, and zoom. |
-| Show hover and focus states for every interactive element | Partially implemented | Add a visible focus indicator to custom checkboxes and verify button focus visibility. |
+| Adapt the interface to different screen sizes | Implemented; layout measured at 375, 768, and 1440px | Check viewports narrower than 375px, long passwords, copy feedback, and zoom. |
+| Show hover and focus states for every interactive element | Implemented; keyboard verification pending | Confirm that every focus indicator is visible in actual browsers. |
 
-The slider already changes its thumb appearance on hover and focus. The copy and generate buttons have hover styles but no dedicated focus styles; browser defaults may still provide an indicator. Checkbox inputs are visually hidden with `sr-only`, and their visible replacement marks do not yet show keyboard focus.
+The slider thumb changes its appearance on hover and focus. The copy and generate buttons have hover styles and `:focus-visible` outlines. Checkbox inputs are visually hidden with `sr-only`, so their visible marks receive the `:focus-visible` outline instead.
 
 ### Screenshot
 
@@ -72,7 +72,8 @@ The slider already changes its thumb appearance on hover and focus. The copy and
 ### Built with
 
 - Semantic HTML, native form controls, and ARIA status messaging
-- Sass, CSS custom properties, logical properties, and fluid typography
+- Sass, CSS custom properties, logical properties, and a 768px breakpoint
+- JetBrains Mono, loaded locally with `@font-face`
 - Flexbox with Every Layout's Stack, Box, Center, Cover, and Cluster patterns
 - jQuery 4.0.0, included locally
 - Web Crypto and Clipboard APIs
@@ -203,6 +204,8 @@ Reserving one line of height stabilized the panel:
 
 `em` is relative to this element's font size, so the reserved height scales with its fluid typography. `min-block-size` keeps enough space before the rating appears while still allowing the element to grow when necessary. The panel remained stable after this change was applied and checked visually.
 
+When the layout was later matched to the Figma design, the reserved line was changed to `1.75rem` for both `line-height` and `min-block-size`. This equals the 28px strength bar height, so the panel height is set by its padding and the bars rather than by the rating's font size.
+
 This fixes the height change caused by initially empty text. On narrow screens, Cluster's `flex-wrap: wrap` can still move content onto another row, so longer labels such as `TOO WEAK!` also need responsive checks.
 
 #### Treat asynchronous feedback as state
@@ -225,44 +228,35 @@ node --check js/main.js
 
 This checks syntax only; it does not exercise the browser DOM or clipboard permissions. The project does not yet include a maintained automated test suite, and `npm test` is still the starter placeholder. Actual browser clipboard behavior and screen reader announcements require manual verification.
 
+The layout was compared with the Figma mobile, tablet, and desktop frames by measuring element positions and sizes in Chrome at 375, 768, and 1440px. Tablet and desktop matched the design; the mobile content was 3px shorter because the design wraps three checkbox rows in 21px containers. This was a measurement, not a visual or cross-browser review.
+
 ### Continued development
 
-#### Complete keyboard focus feedback
+#### Pending browser and accessibility checks
 
-Add an indicator to the visible checkbox mark when its input receives keyboard focus. Explicit button outlines can make focus styling consistent across browsers. These are proposed SCSS additions, not implemented changes:
+Focus styles for the checkbox marks and both buttons are implemented with `:focus-visible`. The following checks have not yet been carried out in actual browsers:
 
-```scss
-input[type='checkbox']:focus-visible + .checkbox-mark {
-  outline: 2px solid v.$Green-200;
-  outline-offset: 3px;
-}
-
-.password-copy:focus-visible,
-.generate-btn:focus-visible {
-  outline: 2px solid v.$Green-200;
-  outline-offset: 4px;
-}
-```
-
-Use Tab and Shift+Tab to check every control. Verify checkbox toggling with Space, slider adjustment with arrow keys, and button activation from the keyboard.
+- Use Tab and Shift+Tab to confirm that every control shows a visible focus indicator. Verify checkbox toggling with Space, slider adjustment with arrow keys, and button activation from the keyboard.
+- Confirm successful clipboard copying and permission failures in Chrome, Firefox, and Safari.
+- Verify generation and repeated copy announcements with a screen reader, avoiding duplicated or stale messages.
+- Check that the slider thumb is centered on the track. WebKit and Firefox currently use different thumb borders (1px and 2px).
+- Test at 200% browser zoom and confirm all controls remain usable.
 
 #### Verify responsive edge cases
 
-- Check 320px and 375px viewports, tablet sizes, and desktop sizes.
-- Generate 20-character passwords, including wide uppercase characters, and check for horizontal overflow or displaced copy controls. The password output currently has no explicit long-string wrapping rule.
-- Check the layout while `COPIED` is visible, since the message takes up space when displayed.
-- Test at 200% browser zoom and confirm all controls remain usable.
-- Correct `padding-inline: clac(...)` to `calc(...)` in `.generate-btn`; the current declaration is invalid and is ignored by the browser.
+The password row, checkbox rows, and strength panel use Cluster's `flex-wrap: wrap`, so content moves to another line when a row runs out of space. These cases are estimates from the font size and container widths, not observed results:
+
+- At 375px, a 20-character password may push the copy button onto a second line. On desktop, the same can happen while `COPIED` is visible.
+- Below roughly 340px, checkbox descriptions may move below their marks.
+- Below roughly 355px, the strength bars may move below the label once a rating such as `TOO WEAK!` appears.
 
 #### Further improvements
 
 - Improve the strength model so that long single-type passwords are not automatically assigned the lowest rating.
-- Verify generation and repeated copy announcements with a screen reader, avoiding duplicated or stale messages.
 - Explain the lowercase fallback near the character options.
-- Review remaining HTML and CSS issues, including decorative SVG semantics, selector typos, and invalid declarations.
+- Review remaining HTML and CSS issues, including decorative SVG semantics and selector typos such as `spcial-letters` and `bg-yello`.
 - Replace blocking alerts with associated inline validation where appropriate.
 - Add browser tests for generation, clipboard failure, repeated clicks, and regeneration during a pending copy.
-- Update inherited package metadata to describe this project.
 
 ### Useful resources
 
