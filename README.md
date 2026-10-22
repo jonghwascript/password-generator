@@ -79,6 +79,7 @@ The slider thumb changes its appearance on hover and focus. The copy and generat
 - Web Crypto and Clipboard APIs
 - Gulp for Sass compilation, source maps, and file watching
 - Prettier for formatting
+- Node.js built-in test runner (`node --test`) for the password rules
 
 ### Running locally
 
@@ -103,6 +104,12 @@ npx gulp
 ```
 
 The default task formats the configured HTML and SCSS files and `gulpfile.js`, compiles Sass, and then watches SCSS changes. It may therefore update files beyond the stylesheet being edited. Stop watching with Ctrl+C.
+
+Run the password rule tests:
+
+```sh
+npm test
+```
 
 Serve the project root with a local static server and open `index.html` through localhost. Clipboard behavior also depends on the browser's security context and permissions; use localhost for development or HTTPS for deployment.
 
@@ -231,13 +238,9 @@ JavaScript behavior, UI integration, and removal of an unused stylesheet were co
 
 ### Validation
 
-During development, Node-based checks with jQuery stand-ins exercised character-type combinations, requested lengths, invalid input handling, and strength label/bar updates. JavaScript syntax and Sass compilation were also checked.
+The password rules live in `js/password.js`, which does not touch the DOM. The page loads it before `js/main.js`, and the tests in `test/password.test.js` load it with `require()`. `npm test` runs them with Node's built-in test runner and covers validation, generation (only selected types, each type included, requested length), and strength levels.
 
-```sh
-node --check js/main.js
-```
-
-This checks syntax only; it does not exercise the browser DOM or clipboard permissions. The project does not yet include a maintained automated test suite, and `npm test` is still the starter placeholder. Actual browser clipboard behavior and screen reader announcements require manual verification.
+The tests do not exercise the browser DOM or clipboard permissions. Actual clipboard behavior and screen reader announcements still require manual verification.
 
 The layout was compared with the Figma mobile, tablet, and desktop frames by measuring element positions and sizes in Chrome at 375, 768, and 1440px. Tablet and desktop matched the design; the mobile content was 3px shorter because the design wraps three checkbox rows in 21px containers. This was a measurement, not a visual or cross-browser review.
 
