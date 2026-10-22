@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-$font-primary: 'Space Mono', monospace;
+$font-primary: 'JetBrains Mono', monospace;
 
 $Green-200: #a4ffaf;
 $Green-400: hsl(172, 67%, 45%);
@@ -23,11 +23,8 @@ $Grey-50: hsl(189, 47%, 97%);
 
 $White: hsl(0, 100%, 100%);
 
-$bg-gradient: linear-gradient(
-  0deg,
-  rgba(20, 19, 17, 1) 0%,
-  rgba(8, 7, 11, 1) 100%
-);
+// Figma colors/gradient 1: 왼쪽 → 오른쪽, Grey-900 → Grey-950
+$bg-gradient: linear-gradient(to right, $Grey-900, $Grey-950);
 
 // 🌟 새 챌린지를 시작할 때 README의 "Layout" 섹션 값으로 아래 두 숫자만 교체하면 된다.
 // 모바일은 breakpoint가 아니라 mobile-first 기본 스타일이므로 맵에 넣지 않는다.

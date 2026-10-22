@@ -4,13 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-
     <link
       rel="icon"
       type="image/png"
@@ -67,7 +60,7 @@
         >
           <!-- Character Length -->
           <div class="length">
-            <div class="stack" data-space="small">
+            <div class="stack">
               <div class="cluster" data-justify="between">
                 <label for="length">Character Length</label>
                 <output id="length-val">0</output>
@@ -83,7 +76,7 @@
             </div>
           </div>
           <!-- Length Include Uppercase Letters  -->
-          <fieldset class="spcial-letters stack" data-space="small">
+          <fieldset class="spcial-letters stack" data-space="normal">
             <!-- TODO 소리를 낼수 일게 남겨야함 -->
             <legend class="sr-only">Character types</legend>
             <label class="cluster" data-justify="start" data-gap="normal">
@@ -107,43 +100,50 @@
               <span class="desc">Include Symbols</span>
             </label>
           </fieldset>
-          <!-- Strength -->
-          <div
-            class="strength cluster box"
-            data-justify="between"
-            data-border="none"
-            data-radius="none"
-            data-padding="normal"
-          >
-            <span id="strength-label">Strength</span>
-            <div class="cluster" data-gap="normal">
-              <output
-                class="strength-value"
-                aria-labelledby="strength-label"
-              ></output>
-              <div class="cluster" aria-hidden="true" data-gap="small">
-                <span class="box-strength one"></span>
-                <span class="box-strength two"></span>
-                <span class="box-strength three"></span>
-                <span class="box-strength four"></span>
+          <!-- Strength + Generate: 둘 사이 간격(16 / 32)이 폼 섹션 간격(32)과 달라서 따로 묶는다 -->
+          <div class="strength-actions stack">
+            <!-- Strength -->
+            <div
+              class="strength cluster box"
+              data-justify="between"
+              data-border="none"
+              data-radius="none"
+              data-padding="normal"
+            >
+              <span id="strength-label">Strength</span>
+              <div class="cluster" data-gap="normal">
+                <output
+                  class="strength-value"
+                  aria-labelledby="strength-label"
+                ></output>
+                <div class="cluster" aria-hidden="true" data-gap="small">
+                  <span class="box-strength one"></span>
+                  <span class="box-strength two"></span>
+                  <span class="box-strength three"></span>
+                  <span class="box-strength four"></span>
+                </div>
               </div>
             </div>
-          </div>
-          <!-- Generate -->
-          <button type="submit" class="generate-btn cluster" data-gap="noraml">
-            <span class="btn-name">generate</span>
-            <svg
-              viewBox="0 0 12 12"
-              xmlns="http://www.w3.org/2000/svg"
-              class="btn-arrow"
-              aria-hidden="true"
+            <!-- Generate -->
+            <button
+              type="submit"
+              class="generate-btn cluster"
+              data-gap="normal"
             >
-              <path
-                fill="#24232C"
-                d="m5.106 12 6-6-6-6-1.265 1.265 3.841 3.84H.001v1.79h7.681l-3.841 3.84z"
-              />
-            </svg>
-          </button>
+              <span class="btn-name">generate</span>
+              <svg
+                viewBox="0 0 12 12"
+                xmlns="http://www.w3.org/2000/svg"
+                class="btn-arrow"
+                aria-hidden="true"
+              >
+                <path
+                  fill="#24232C"
+                  d="m5.106 12 6-6-6-6-1.265 1.265 3.841 3.84H.001v1.79h7.681l-3.841 3.84z"
+                />
+              </svg>
+            </button>
+          </div>
         </form>
       </section>
     </main>

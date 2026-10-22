@@ -1,4 +1,11 @@
 @charset "UTF-8";
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("../fonts/JetBrainsMono-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
 html {
   font-size: 100%;
 }
@@ -199,10 +206,21 @@ h4 {
 
 body {
   background-color: #08070b;
+  background-image: linear-gradient(to right, #14131b, #08070b);
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 700;
 }
 
 .password-page {
   padding-inline: 1rem;
+  /* 맵에 해당 기기 이름이 있는지 확인 */
+  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
+}
+@media (min-width: 768px) {
+  .password-page {
+    padding-block-start: 8.3125rem;
+    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
+  }
 }
 
 .password-generator {
@@ -212,35 +230,133 @@ body {
   padding-inline: 0;
 }
 
+.password-page > .password-generator {
+  /* 맵에 해당 기기 이름이 있는지 확인 */
+  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
+}
+@media (min-width: 768px) {
+  .password-page > .password-generator {
+    --space: 1.5rem;
+    margin-block: 0 auto;
+    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
+  }
+}
+
 .title {
-  font-family: "Space Mono", monospace;
+  font-family: "JetBrains Mono", monospace;
   font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25rem;
   color: #817d92;
   text-align: center;
+  /* 맵에 해당 기기 이름이 있는지 확인 */
+  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
+}
+@media (min-width: 768px) {
+  .title {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 2rem;
+    margin-block-end: 0.5rem;
+    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
+  }
 }
 
 form.box {
+  --space: 2rem;
   background-color: #24232c;
   color: #e6e5ea;
+  /* 맵에 해당 기기 이름이 있는지 확인 */
+  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
+}
+@media (min-width: 768px) {
+  form.box {
+    padding-block: 1.5rem 2.5625rem;
+    padding-inline: 2rem;
+    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
+  }
 }
 form.box label[for=length] {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25rem;
   color: #e6e5ea;
-  font-size: clamp(1rem, 0.9278rem + 0.3082vw, 1.125rem);
+  /* 맵에 해당 기기 이름이 있는지 확인 */
+  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
+}
+@media (min-width: 768px) {
+  form.box label[for=length] {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
+  }
 }
 form.box #length-val {
-  color: #a4ffaf;
-  font-family: "Space Mono", monospace;
+  font-family: "JetBrains Mono", monospace;
   font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 2rem;
+  color: #a4ffaf;
+  /* 맵에 해당 기기 이름이 있는지 확인 */
+  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
+}
+@media (min-width: 768px) {
+  form.box #length-val {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 2.625rem;
+    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
+  }
+}
+
+.length > .stack {
+  --space: 0.5rem;
+  /* 맵에 해당 기기 이름이 있는지 확인 */
+  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
+}
+@media (min-width: 768px) {
+  .length > .stack {
+    --space: 1rem;
+    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
+  }
 }
 
 .output-password {
   background-color: #24232c;
+  /* 맵에 해당 기기 이름이 있는지 확인 */
+  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
+}
+@media (min-width: 768px) {
+  .output-password {
+    padding-block: 1.1875rem;
+    padding-inline: 2rem;
+    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
+  }
 }
 .output-password .password {
-  color: #54535b;
-  font-family: "Space Mono", monospace;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.5rem;
   font-weight: 700;
-  font-size: clamp(1.5rem, 1.25vw + 1.25rem, 2rem);
+  line-height: 2rem;
+  color: #54535b;
+  /* 맵에 해당 기기 이름이 있는지 확인 */
+  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
+}
+@media (min-width: 768px) {
+  .output-password .password {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 2.625rem;
+    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
+  }
+}
+.output-password .password {
   min-width: 0;
   word-break: break-all;
 }
@@ -251,7 +367,7 @@ form.box #length-val {
   display: none;
 }
 .output-password .copied.active {
-  font-family: "Space Mono", monospace;
+  font-family: "JetBrains Mono", monospace;
   font-size: 1.125rem;
   display: block;
   color: #a4ffaf;
@@ -259,12 +375,20 @@ form.box #length-val {
 .output-password .password-copy {
   background-color: #24232c;
   border: 0;
+  padding: 0;
   cursor: pointer;
 }
 .output-password .password-copy .copy-svg {
-  width: 100%;
+  width: 1.09375rem;
   height: auto;
-  max-width: 1.3125rem;
+  /* 맵에 해당 기기 이름이 있는지 확인 */
+  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
+}
+@media (min-width: 768px) {
+  .output-password .password-copy .copy-svg {
+    width: 1.3125rem;
+    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
+  }
 }
 .output-password .password-copy:hover .copy-svg path {
   fill: hsl(0, 100%, 100%);
@@ -275,6 +399,7 @@ input[type=range] {
   /* 크롬, 사파리 등 WebKit 브라우저 기본 스타일 제거 */
   appearance: none;
   width: 100%;
+  height: 1.75rem;
   background: transparent;
   /* 배경을 투명하게 (우리가 직접 트랙을 그릴 예정) */
   cursor: pointer;
@@ -342,12 +467,11 @@ input[type=range]::-moz-range-track {
 
 fieldset {
   border: 0;
+  padding: 0;
+  min-inline-size: 0;
 }
 fieldset label.cluster {
   cursor: pointer;
-}
-fieldset label.cluster span {
-  font-size: 1.125rem;
 }
 fieldset label.cluster .checkbox-mark {
   position: relative;
@@ -380,36 +504,88 @@ fieldset label.cluster input[type=checkbox]:checked + .checkbox-mark::after {
   background-repeat: no-repeat;
 }
 fieldset label.cluster .desc {
-  font-family: "Space Mono", monospace;
-  font-size: clamp(1rem, 0.9278rem + 0.3082vw, 1.125rem);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25rem;
+  /* 맵에 해당 기기 이름이 있는지 확인 */
+  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
+}
+@media (min-width: 768px) {
+  fieldset label.cluster .desc {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
+  }
+}
+
+.spcial-letters label.cluster {
+  /* 맵에 해당 기기 이름이 있는지 확인 */
+  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
+}
+@media (min-width: 768px) {
+  .spcial-letters label.cluster {
+    --space: 1.5rem;
+    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
+  }
+}
+
+.strength-actions {
+  --space: 1rem;
+  /* 맵에 해당 기기 이름이 있는지 확인 */
+  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
+}
+@media (min-width: 768px) {
+  .strength-actions {
+    --space: 2rem;
+    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
+  }
 }
 
 .strength {
   background-color: #18171f;
-  padding-block: 1rem;
-  padding-inline: clamp(1rem, 0.4222rem + 2.4653vw, 2rem);
+  padding-block: 0.875rem;
+  padding-inline: 1rem;
+  /* 맵에 해당 기기 이름이 있는지 확인 */
+  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
+}
+@media (min-width: 768px) {
+  .strength {
+    padding-block: 1.375rem;
+    padding-inline: 2rem;
+    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
+  }
 }
 .strength #strength-label {
-  font-family: "Space Mono", monospace;
-  font-size: clamp(1rem, 0.9278rem + 0.3082vw, 1.125rem);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25rem;
   color: #817d92;
   text-transform: uppercase;
+  /* 맵에 해당 기기 이름이 있는지 확인 */
+  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
+}
+@media (min-width: 768px) {
+  .strength #strength-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
+  }
 }
 .strength .strength-value {
-  font-family: "Space Mono", monospace;
   font-size: clamp(1rem, 0.7111rem + 1.2327vw, 1.5rem);
   color: #e6e5ea;
-  line-height: 1.5;
-  min-block-size: 1.5em;
-}
-.strength #length-val {
-  font-family: "Space Mono", monospace;
-  font-size: 1.125rem;
-  color: #e6e5ea;
+  line-height: 1.75rem;
+  min-block-size: 1.75rem;
 }
 .strength .box-strength {
   width: 0.625rem;
-  height: 1.25rem;
+  height: 1.75rem;
   border: 0.125rem solid #e6e5ea;
 }
 .strength .box-strength.active {
@@ -422,20 +598,40 @@ fieldset label.cluster .desc {
   border: 2px solid transparent;
 }
 .generate-btn .btn-name {
-  font-family: "Space Mono", monospace;
+  font-family: "JetBrains Mono", monospace;
   font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25rem;
   color: #24232c;
   text-transform: uppercase;
+  /* 맵에 해당 기기 이름이 있는지 확인 */
+  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
+}
+@media (min-width: 768px) {
+  .generate-btn .btn-name {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
+  }
 }
 .generate-btn .btn-arrow {
-  width: 100%;
+  width: 0.75rem;
   height: auto;
-  max-width: 0.75rem;
 }
 .generate-btn {
   padding-block: 1rem;
   padding-inline: 1rem;
   background-color: #a4ffaf;
+  /* 맵에 해당 기기 이름이 있는지 확인 */
+  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
+}
+@media (min-width: 768px) {
+  .generate-btn {
+    padding-block: 1.15625rem;
+    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
+  }
 }
 .generate-btn:hover {
   border: 2px solid #a4ffaf;
@@ -446,6 +642,17 @@ fieldset label.cluster .desc {
 }
 .generate-btn:hover .btn-arrow path {
   fill: #a4ffaf;
+}
+
+.generate-btn.cluster {
+  /* 맵에 해당 기기 이름이 있는지 확인 */
+  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
+}
+@media (min-width: 768px) {
+  .generate-btn.cluster {
+    --space: 1.5rem;
+    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
+  }
 }
 
 .bg-green {

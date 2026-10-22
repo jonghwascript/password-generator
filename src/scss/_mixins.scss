@@ -12,6 +12,22 @@
   line-height: $line-height;
 }
 
+// Figma 텍스트 프리셋 (JetBrains Mono Bold, 자간 0)
+// @include text-preset(3);
+@mixin text-preset($level) {
+  @if $level == 1 {
+    @include font-style(2rem, 700, 2.625rem); // 32 / 42
+  } @else if $level == 2 {
+    @include font-style(1.5rem, 700, 2rem); // 24 / 32
+  } @else if $level == 3 {
+    @include font-style(1.125rem, 700, 1.5rem); // 18 / 24
+  } @else if $level == 4 {
+    @include font-style(1rem, 700, 1.25rem); // 16 / 20
+  } @else {
+    @error '텍스트 프리셋 "#{$level}"이 존재하지 않습니다.';
+  }
+}
+
 // @include linear-gradient(to right, #ff7e5f, #feb47b)
 @mixin linear-gradient($direction, $start-color, $end-color) {
   background: $start-color; // 그라데이션 미지원 브라우저용 대체(Fallback) 색상

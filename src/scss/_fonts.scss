@@ -1,1 +1,11 @@
 @charset "UTF-8";
+
+// Figma는 모든 텍스트에 JetBrains Mono Bold(700)를 쓴다.
+// 경로는 컴파일된 css/style.css 기준이다.
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('../fonts/JetBrainsMono-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}

@@ -1,21 +1,29 @@
-@use 'fonts'as *;
-@use 'reset'as *;
-@use 'variables'as v;
-@use 'mixins'as *;
-@use 'utilities'as *;
-@use './layout/box'as *;
-@use './layout/cluster'as *;
-@use './layout/stack'as *;
-@use './layout/center'as *;
-@use './layout/cover'as *;
+@use 'fonts' as *;
+@use 'reset' as *;
+@use 'variables' as v;
+@use 'mixins' as *;
+@use 'utilities' as *;
+@use './layout/box' as *;
+@use './layout/cluster' as *;
+@use './layout/stack' as *;
+@use './layout/center' as *;
+@use './layout/cover' as *;
 
 body {
-  background-color: v.$Grey-950;
+  background-color: v.$Grey-950; // 그라디언트 미지원 대비
+  background-image: v.$bg-gradient;
+  font-family: v.$font-primary;
+  font-weight: 700;
 }
 
 //padding-inline은 가로쓰기에서 왼쪽과 오른쪽 안쪽 여백입니다. 1rem은 루트 글자 크기 기준이며, 기본 설정에서는 16px입니다. .cover보다 뒤에 작성하므로 기존 좌우 24px 패딩을 덮어씁니다.
 .password-page {
   padding-inline: 1rem;
+
+  // 태블릿·데스크톱은 세로 가운데가 아니라 위에서 133px에 놓인다.
+  @include mq('tablet') {
+    padding-block-start: 8.3125rem; // 133px
+  }
 }
 
 // .center 스타일 뒤에 작성
@@ -26,39 +34,84 @@ body {
   padding-inline: 0; //.center의 좌우 패딩을 없애 바깥 여백과 중복되지 않게 합니다.
 }
 
-.title {
-  font-family: v.$font-primary;
-  font-size: 1rem; //16px
-  color: v.$Grey-600;
-  text-align: center;
+// 명시도 (0,2,0): `.cover > .center`, `.stack[data-space='normal']`보다 뒤에 있어야 덮어쓴다.
+.password-page > .password-generator {
+  @include mq('tablet') {
+    --space: 1.5rem; // 카드 사이 간격: 16 / 24
+    margin-block: 0 auto; // 세로 가운데 정렬을 끄고 위에서 133px에 놓는다
+  }
 }
 
-// 동일한 출처·레이어의 일반 선언에서는 클래스 선택자 `.box`가 태그 선택자 `form`보다 명시도가 높다. 
+.title {
+  @include text-preset(4);
+  color: v.$Grey-600;
+  text-align: center;
+
+  // 제목 → 카드 간격 32 = 스택 간격 24 + 8
+  @include mq('tablet') {
+    @include text-preset(2);
+    margin-block-end: 0.5rem;
+  }
+}
+
+// 동일한 출처·레이어의 일반 선언에서는 클래스 선택자 `.box`가 태그 선택자 `form`보다 명시도가 높다.
 // 따라서 `form`을 뒤에 써도 흰색이 적용된다
 form.box {
+  --space: 2rem; // 폼 섹션 간격 32 (모든 화면)
   background-color: v.$Grey-800;
   color: v.$Grey-200;
 
+  // 패딩: 16 / 위 24 · 좌우 32 · 아래 41 (Figma 레이어 위치 기준)
+  @include mq('tablet') {
+    padding-block: 1.5rem 2.5625rem;
+    padding-inline: 2rem;
+  }
+
   label[for='length'] {
+    @include text-preset(4);
     color: v.$Grey-200;
-    font-size: clamp(1rem, 0.9278rem + 0.3082vw, 1.125rem); //모바일, 데스크탑 폰트사이즈 틀림
+
+    @include mq('tablet') {
+      @include text-preset(3);
+    }
   }
 
   #length-val {
+    @include text-preset(2);
     color: v.$Green-200;
-    font-family: v.$font-primary;
-    font-size: 1.5rem;
+
+    @include mq('tablet') {
+      @include text-preset(1);
+    }
+  }
+}
+
+// 머리 줄 → 슬라이더 간격: 8 / 16
+.length > .stack {
+  --space: 0.5rem;
+
+  @include mq('tablet') {
+    --space: 1rem;
   }
 }
 
 .output-password {
   background-color: v.$Grey-800;
 
+  // 패딩: 16 / 위아래 19 · 좌우 32 → 높이 64 / 80
+  @include mq('tablet') {
+    padding-block: 1.1875rem;
+    padding-inline: 2rem;
+  }
+
   .password {
+    @include text-preset(2);
     color: v.$Grey-700;
-    font-family: v.$font-primary;
-    font-weight: 700;
-    font-size: clamp(1.5rem, 1.25vw + 1.25rem, 2rem);
+
+    @include mq('tablet') {
+      @include text-preset(1);
+    }
+
     // Flex item에는 기본적으로 `min-width: auto`가 적용되고, 이 때문에 콘텐츠보다 작아지지 않으려고 한다
     min-width: 0;
     word-break: break-all;
@@ -82,12 +135,17 @@ form.box {
   .password-copy {
     background-color: v.$Grey-800;
     border: 0;
+    padding: 0; // 브라우저 기본 버튼 패딩 제거
     cursor: pointer;
 
+    // 아이콘: 17.5 × 20 / 21 × 24
     .copy-svg {
-      width: 100%;
+      width: 1.09375rem;
       height: auto;
-      max-width: 1.3125rem;
+
+      @include mq('tablet') {
+        width: 1.3125rem;
+      }
     }
 
     // Hover는 가상 클래스이므로 콜론을 하나만 사용한다.
@@ -105,6 +163,7 @@ input[type='range'] {
   /* 크롬, 사파리 등 WebKit 브라우저 기본 스타일 제거 */
   appearance: none;
   width: 100%;
+  height: 1.75rem; // 손잡이 높이(28)만큼 차지해야 Figma 슬라이더 높이와 맞는다
   background: transparent;
   /* 배경을 투명하게 (우리가 직접 트랙을 그릴 예정) */
   cursor: pointer;
@@ -160,29 +219,31 @@ input[type='range']::-webkit-slider-runnable-track {
   width: 100%;
   height: 8px;
   /* CSS 변수를 이용해 지나간 부분(네온 그린)과 안 지나간 부분(검정)을 나눔 */
-  background: linear-gradient(to right,
-      #a4ffaf var(--progress, 50%),
-      #18171f var(--progress, 50%));
+  background: linear-gradient(
+    to right,
+    #a4ffaf var(--progress, 50%),
+    #18171f var(--progress, 50%)
+  );
 }
 
 /* 💡 파이어폭스용 트랙 */
 input[type='range']::-moz-range-track {
   width: 100%;
   height: 8px;
-  background: linear-gradient(to right,
-      #a4ffaf var(--progress, 50%),
-      #18171f var(--progress, 50%));
+  background: linear-gradient(
+    to right,
+    #a4ffaf var(--progress, 50%),
+    #18171f var(--progress, 50%)
+  );
 }
 
 fieldset {
   border: 0;
+  padding: 0; // 브라우저 기본 fieldset 패딩 제거
+  min-inline-size: 0;
 
   label.cluster {
     cursor: pointer;
-
-    span {
-      font-size: 1.125rem;
-    }
 
     // 1. 평소 상태 (빈 네모 박스)
     .checkbox-mark {
@@ -193,26 +254,26 @@ fieldset {
     }
 
     // 2. hover 시 테두리 색상 강조 (선택 사항)
-    &:hover input:not(:checked)+.checkbox-mark {
+    &:hover input:not(:checked) + .checkbox-mark {
       border-color: v.$Green-200;
     }
 
     // 3. 체크되었을 때의 상태 (배경색 채우기)
-    input[type='checkbox']:checked+.checkbox-mark {
+    input[type='checkbox']:checked + .checkbox-mark {
       background-color: v.$Green-200;
       border-color: v.$Green-200;
     }
 
     // 체크박스 input을 sr-only로 숨겼기 때문에 Tab으로 이동해도 화면에서는 현재 선택 위치를 알기 어렵습니다.
     // 표시용 박스에 포커스를 전달하세요
-    input[type='checkbox']:focus-visible+.checkbox-mark {
+    input[type='checkbox']:focus-visible + .checkbox-mark {
       outline: 2px solid v.$Green-200;
       outline-offset: 3px;
     }
 
     /* 4. 체크마크(V) 모양 그리기 (가상 요소 활용) */
     /* 체크되었을 때만 ::after를 이용해 체크 표시를 생성합니다. */
-    input[type='checkbox']:checked+.checkbox-mark::after {
+    input[type='checkbox']:checked + .checkbox-mark::after {
       content: '';
       display: block;
       width: 100%;
@@ -223,42 +284,65 @@ fieldset {
     }
 
     .desc {
-      font-family: v.$font-primary;
-      font-size: clamp(1rem, 0.9278rem + 0.3082vw, 1.125rem);
+      @include text-preset(4);
+
+      @include mq('tablet') {
+        @include text-preset(3);
+      }
     }
+  }
+}
+
+// 체크박스 → 라벨 간격: 16 / 24
+// `.cluster[data-gap='normal']`(0,2,0)보다 명시도가 높아야 한다.
+.spcial-letters label.cluster {
+  @include mq('tablet') {
+    --space: 1.5rem;
+  }
+}
+
+// 강도 박스 → 생성 버튼 간격: 16 / 32
+.strength-actions {
+  --space: 1rem;
+
+  @include mq('tablet') {
+    --space: 2rem;
   }
 }
 
 .strength {
   background-color: v.$Grey-850;
-  padding-block: 1rem;
-  padding-inline: clamp(1rem, 0.4222rem + 2.4653vw, 2rem);
+  // 패딩: 위아래 14 · 좌우 16 / 위아래 22 · 좌우 32 → 높이 56 / 72
+  padding-block: 0.875rem;
+  padding-inline: 1rem;
+
+  @include mq('tablet') {
+    padding-block: 1.375rem;
+    padding-inline: 2rem;
+  }
 
   #strength-label {
-    font-family: v.$font-primary;
-    font-size: clamp(1rem, 0.9278rem + 0.3082vw, 1.125rem);
+    @include text-preset(4);
     color: v.$Grey-600;
     text-transform: uppercase;
+
+    @include mq('tablet') {
+      @include text-preset(3);
+    }
   }
 
+  // 강도 단계 텍스트는 Figma 빈 상태 프레임에 없어 크기를 확인할 수 없다(기존 값 유지).
   .strength-value {
-    font-family: v.$font-primary;
     font-size: clamp(1rem, 0.7111rem + 1.2327vw, 1.5rem);
     color: v.$Grey-200;
-    // 텍스트가 없어도 한 줄 높이를 확보합니다.
-    line-height: 1.5;
-    min-block-size: 1.5em;
-  }
-
-  #length-val {
-    font-family: v.$font-primary;
-    font-size: 1.125rem; //18px
-    color: v.$Grey-200;
+    // 막대 높이(28)에 맞춰 줄높이를 고정해, 텍스트가 생겨도 박스 높이가 바뀌지 않게 한다.
+    line-height: 1.75rem;
+    min-block-size: 1.75rem;
   }
 
   .box-strength {
     width: 0.625rem;
-    height: 1.25rem;
+    height: 1.75rem; // 28px
     border: 0.125rem solid v.$Grey-200;
 
     &.active {
@@ -273,21 +357,29 @@ fieldset {
   border: 2px solid transparent;
 
   .btn-name {
-    font-family: v.$font-primary;
-    font-size: 1rem; //16px
+    @include text-preset(4);
     color: v.$Grey-800;
     text-transform: uppercase;
+
+    @include mq('tablet') {
+      @include text-preset(3);
+    }
   }
 
   .btn-arrow {
-    width: 100%;
+    width: 0.75rem;
     height: auto;
-    max-width: 0.75rem;
   }
 
+  // 높이 56 = 테두리 2 + 패딩 16 + 줄높이 20 + 16 + 2
   padding-block: 1rem;
   padding-inline: 1rem;
   background-color: v.$Green-200;
+
+  // 높이 65 = 테두리 2 + 패딩 18.5 + 줄높이 24 + 18.5 + 2
+  @include mq('tablet') {
+    padding-block: 1.15625rem;
+  }
 
   &:hover {
     border: 2px solid v.$Green-200;
@@ -300,6 +392,14 @@ fieldset {
     .btn-arrow path {
       fill: v.$Green-200;
     }
+  }
+}
+
+// 텍스트 → 화살표 간격: 16 / 24
+// `.cluster[data-gap='normal']`(0,2,0)보다 뒤에 있어야 한다.
+.generate-btn.cluster {
+  @include mq('tablet') {
+    --space: 1.5rem;
   }
 }
 
