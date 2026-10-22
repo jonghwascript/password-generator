@@ -61,7 +61,7 @@ h4 {
   max-width: 60ch;
 }
 
-.sr-only {
+.u-sr-only {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -73,7 +73,7 @@ h4 {
   border: 0;
 }
 
-.box {
+.l-box {
   --padding: 1.5rem;
   padding: var(--padding);
   border: 1px solid #e2e8f0;
@@ -84,65 +84,66 @@ h4 {
   outline-offset: -0.125rem;
 }
 
-.box[data-invert=true] {
+.l-box[data-invert=true] {
   background-color: #1e293b;
   color: #ffffff;
   border-color: #1e293b;
 }
 
-.box[data-padding=none] {
+.l-box[data-padding=none] {
   --padding: 0;
 }
 
-.box[data-padding=small] {
+.l-box[data-padding=small] {
   --padding: 0.75rem;
 }
 
-.box[data-padding=normal] {
+.l-box[data-padding=normal] {
   --padding: 1rem;
 }
 
-.box[data-padding=large] {
+.l-box[data-padding=large] {
   --padding: 3rem;
 }
 
-.box[data-border=none] {
+.l-box[data-border=none] {
   border: none;
 }
 
-.box[data-radius=none] {
+.l-box[data-radius=none] {
   border-radius: 0;
 }
 
-.cluster {
+.l-cluster {
+  --space: 1rem;
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space, 1rem);
+  gap: var(--space);
   justify-content: center;
   align-items: center;
 }
 
-.cluster[data-justify=start] {
+.l-cluster[data-justify=start] {
   justify-content: flex-start;
 }
 
-.cluster[data-justify=between] {
+.l-cluster[data-justify=between] {
   justify-content: space-between;
 }
 
-.cluster[data-gap=small] {
+.l-cluster[data-gap=small] {
   --space: 0.5rem;
 }
 
-.cluster[data-gap=normal] {
+.l-cluster[data-gap=normal] {
   --space: 1rem;
 }
 
-.cluster[data-gap=large] {
+.l-cluster[data-gap=large] {
   --space: 1.5rem;
 }
 
-.stack {
+.l-stack {
   --space: 1.5rem;
   display: flex;
   flex-direction: column;
@@ -150,41 +151,41 @@ h4 {
   gap: var(--space, 1.5rem);
 }
 
-.stack > * {
+.l-stack > * {
   margin-block: 0;
 }
 
-.stack[data-space=small] {
+.l-stack[data-space=small] {
   --space: 0.75rem;
 }
 
-.stack[data-space=normal] {
+.l-stack[data-space=normal] {
   --space: 1rem;
 }
 
-.stack[data-space=large] {
+.l-stack[data-space=large] {
   --space: 3rem;
 }
 
-.stack > .push-bottom {
+.l-stack > .push-bottom {
   margin-block-start: auto;
 }
 
-.stack[data-recursive] * {
+.l-stack[data-recursive] * {
   margin-block: 0;
 }
 
-.stack[data-recursive] * + * {
+.l-stack[data-recursive] * + * {
   margin-block-start: var(--space, 1.5rem);
 }
 
-.stack-divided > * + * {
+.l-stack-divided > * + * {
   margin-block-start: 1.5rem;
   padding-block-start: 1.5rem;
   border-block-start: 1px solid #e2e8f0;
 }
 
-.center {
+.l-center {
   box-sizing: content-box;
   max-inline-size: 60ch;
   margin-inline: auto;
@@ -192,7 +193,7 @@ h4 {
   padding-inline-end: var(--s1, 1.5rem);
 }
 
-.cover {
+.l-cover {
   --space: var(--s1, 1.5rem);
   display: flex;
   flex-direction: column;
@@ -200,7 +201,7 @@ h4 {
   padding: var(--space);
 }
 
-.cover > .center {
+.l-cover > .l-center {
   margin-block: auto;
 }
 
@@ -263,7 +264,7 @@ body {
   }
 }
 
-form.box {
+form.l-box {
   --space: 2rem;
   background-color: #24232c;
   color: #e6e5ea;
@@ -271,13 +272,13 @@ form.box {
   /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
 }
 @media (min-width: 768px) {
-  form.box {
+  form.l-box {
     padding-block: 1.5rem 2.5625rem;
     padding-inline: 2rem;
     /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
   }
 }
-form.box label[for=length] {
+form.l-box label[for=length] {
   font-family: "JetBrains Mono", monospace;
   font-size: 1rem;
   font-weight: 700;
@@ -287,7 +288,7 @@ form.box label[for=length] {
   /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
 }
 @media (min-width: 768px) {
-  form.box label[for=length] {
+  form.l-box label[for=length] {
     font-family: "JetBrains Mono", monospace;
     font-size: 1.125rem;
     font-weight: 700;
@@ -295,7 +296,7 @@ form.box label[for=length] {
     /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
   }
 }
-form.box #length-val {
+form.l-box #length-val {
   font-family: "JetBrains Mono", monospace;
   font-size: 1.5rem;
   font-weight: 700;
@@ -305,7 +306,7 @@ form.box #length-val {
   /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
 }
 @media (min-width: 768px) {
-  form.box #length-val {
+  form.l-box #length-val {
     font-family: "JetBrains Mono", monospace;
     font-size: 2rem;
     font-weight: 700;
@@ -314,13 +315,13 @@ form.box #length-val {
   }
 }
 
-.length > .stack {
+.length > .l-stack {
   --space: 0.5rem;
   /* 맵에 해당 기기 이름이 있는지 확인 */
   /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
 }
 @media (min-width: 768px) {
-  .length > .stack {
+  .length > .l-stack {
     --space: 1rem;
     /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
   }
@@ -470,31 +471,31 @@ fieldset {
   padding: 0;
   min-inline-size: 0;
 }
-fieldset label.cluster {
+fieldset label.l-cluster {
   cursor: pointer;
 }
-fieldset label.cluster .checkbox-mark {
+fieldset label.l-cluster .checkbox-mark {
   position: relative;
   width: 1.25rem;
   height: 1.25rem;
   border: 0.125rem solid #e6e5ea;
 }
-fieldset label.cluster:hover input:not(:checked) + .checkbox-mark {
+fieldset label.l-cluster:hover input:not(:checked) + .checkbox-mark {
   border-color: #a4ffaf;
 }
-fieldset label.cluster input[type=checkbox]:checked + .checkbox-mark {
+fieldset label.l-cluster input[type=checkbox]:checked + .checkbox-mark {
   background-color: #a4ffaf;
   border-color: #a4ffaf;
 }
-fieldset label.cluster input[type=checkbox]:focus-visible + .checkbox-mark {
+fieldset label.l-cluster input[type=checkbox]:focus-visible + .checkbox-mark {
   outline: 2px solid #a4ffaf;
   outline-offset: 3px;
 }
-fieldset label.cluster {
+fieldset label.l-cluster {
   /* 4. 체크마크(V) 모양 그리기 (가상 요소 활용) */
   /* 체크되었을 때만 ::after를 이용해 체크 표시를 생성합니다. */
 }
-fieldset label.cluster input[type=checkbox]:checked + .checkbox-mark::after {
+fieldset label.l-cluster input[type=checkbox]:checked + .checkbox-mark::after {
   content: "";
   display: block;
   width: 100%;
@@ -503,7 +504,7 @@ fieldset label.cluster input[type=checkbox]:checked + .checkbox-mark::after {
   background-position: center center;
   background-repeat: no-repeat;
 }
-fieldset label.cluster .desc {
+fieldset label.l-cluster .desc {
   font-family: "JetBrains Mono", monospace;
   font-size: 1rem;
   font-weight: 700;
@@ -512,7 +513,7 @@ fieldset label.cluster .desc {
   /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
 }
 @media (min-width: 768px) {
-  fieldset label.cluster .desc {
+  fieldset label.l-cluster .desc {
     font-family: "JetBrains Mono", monospace;
     font-size: 1.125rem;
     font-weight: 700;
@@ -521,12 +522,12 @@ fieldset label.cluster .desc {
   }
 }
 
-.special-letters label.cluster {
+.special-letters label.l-cluster {
   /* 맵에 해당 기기 이름이 있는지 확인 */
   /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
 }
 @media (min-width: 768px) {
-  .special-letters label.cluster {
+  .special-letters label.l-cluster {
     --space: 1.5rem;
     /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
   }
@@ -644,12 +645,12 @@ fieldset label.cluster .desc {
   fill: #a4ffaf;
 }
 
-.generate-btn.cluster {
+.generate-btn.l-cluster {
   /* 맵에 해당 기기 이름이 있는지 확인 */
   /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
 }
 @media (min-width: 768px) {
-  .generate-btn.cluster {
+  .generate-btn.l-cluster {
     --space: 1.5rem;
     /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
   }

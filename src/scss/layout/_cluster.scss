@@ -1,15 +1,15 @@
 // ==========================================
 // The Cluster (가로 줄바꿈 배치 - 태그, 버튼 그룹용)
 // ==========================================
-.cluster {
+.l-cluster {
+  // 기본 간격을 클래스에 직접 선언해 조상(.l-stack·.l-cover 등)의 --space를 상속하지 않는다.
+  // 바꾸려면 data-gap 옵션이나 이 요소의 컴포넌트 클래스에서 --space를 지정한다.
+  --space: 1rem;
   // Flexbox 문맥 설정
   display: flex;
   // 자식 요소들이 넘치면 자연스럽게 줄바꿈 허용
   flex-wrap: wrap;
-  // 간격 설정
-  // 관계: data-gap이 없으면 --space를 직접 정하지 않으므로, 가장 가까운 조상(.stack·.cover 등)의 --space를 상속해 간격으로 쓴다.
-  // 1rem은 어느 조상도 --space를 정하지 않았을 때만 쓰인다.
-  gap: var(--space, 1rem);
+  gap: var(--space);
   // 가로 정렬 기본값: 가운데 (data-justify로 바꾼다)
   justify-content: center;
   // 세로 정렬: 가운데
@@ -17,22 +17,22 @@
 }
 
 // 옵션 확장 (클러스터의 다양한 맛)
-.cluster[data-justify='start'] {
+.l-cluster[data-justify='start'] {
   justify-content: flex-start;
 }
 
-.cluster[data-justify='between'] {
+.l-cluster[data-justify='between'] {
   justify-content: space-between;
 }
 
-.cluster[data-gap='small'] {
+.l-cluster[data-gap='small'] {
   --space: 0.5rem; //8px;
 }
 
-.cluster[data-gap='normal'] {
+.l-cluster[data-gap='normal'] {
   --space: 1rem; //16px;
 }
 
-.cluster[data-gap='large'] {
+.l-cluster[data-gap='large'] {
   --space: 1.5rem;
 }

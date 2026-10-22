@@ -4,7 +4,7 @@
 // 자식들의 margin을 각각 관리하지 않고 부모가 수직 간격 규칙을 통제한다
 // ----------------------------------
 
-.stack {
+.l-stack {
   // 1. 모듈러 스케일에 기반한 기본 간격 설정 (언제든 덮어쓸 수 있도록 CSS 변수 사용)
   --space: 1.5rem;
 
@@ -18,7 +18,7 @@
 }
 
 // 4. 자식 요소들의 기본 세로 여백 '백지화' (충돌 방지 핵심!)
-.stack > * {
+.l-stack > * {
   margin-block: 0;
 }
 
@@ -27,15 +27,15 @@
 // ----------------------------------
 // 1.5rem을 기준으로 비율(Ratio)에 맞게 쪼개고 곱합니다.
 
-.stack[data-space='small'] {
+.l-stack[data-space='small'] {
   --space: 0.75rem; // 촘촘한 간격이 필요할 때
 }
 
-.stack[data-space='normal'] {
+.l-stack[data-space='normal'] {
   --space: 1rem; //16px
 }
 
-.stack[data-space='large'] {
+.l-stack[data-space='large'] {
   --space: 3rem; // 섹션과 섹션 사이 등 큰 간격이 필요할 때
 }
 
@@ -43,7 +43,7 @@
 // 마법의 유틸리티: 공간 밀어내기
 // ----------------------------------
 // 특정 요소부터 맨 아래로 확 밀어버리고 싶을 때 사용합니다.
-.stack > .push-bottom {
+.l-stack > .push-bottom {
   margin-block-start: auto;
 }
 
@@ -52,17 +52,17 @@
 // - 직계 자식(>) 기호를 빼서 모든 자손(*)에게 적용되도록 함
 // ----------------------------------
 // 1. 스택 안의 "모든 자손"의 기본 여백을 완벽히 백지화
-.stack[data-recursive] * {
+.l-stack[data-recursive] * {
   margin-block: 0;
 }
 
 // 2. 부엉이 선택자: 첫 번째를 제외한 "모든 인접 형제 자손"의 위쪽에 마진 주입
-.stack[data-recursive] * + * {
+.l-stack[data-recursive] * + * {
   margin-block-start: var(--space, 1.5rem);
 }
 
 //부모 컴포넌트: '나누는 스택'
-.stack-divided > * + * {
+.l-stack-divided > * + * {
   //첫 번째를 제외한 모든 자식들의 '위쪽'에만 마진과 테두리를 줍니다!
   margin-block-start: 1.5rem;
   padding-block-start: 1.5rem;

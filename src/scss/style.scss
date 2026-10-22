@@ -16,9 +16,9 @@ body {
   font-weight: 700;
 }
 
-// 관계: main(.cover, 세로 flex)의 콘텐츠 박스 안에 섹션이 놓인다. 좌우 패딩 1rem은 `.cover`의 1.5rem을 선언 순서로 덮어쓰고, 위아래 1.5rem은 남는다.
+// 관계: main(.l-cover, 세로 flex)의 콘텐츠 박스 안에 섹션이 놓인다. 좌우 패딩 1rem은 `.l-cover`의 1.5rem을 선언 순서로 덮어쓰고, 위아래 1.5rem은 남는다.
 // 제한: 섹션 폭 = min(main 콘텐츠 폭, 540px). main 높이는 최소 100vh이고 내용이 길면 늘어난다.
-// 전환: 768px 미만은 `.cover > .center`의 auto margin으로 세로 가운데. 768px 이상은 위 패딩 133px에서 시작하고 아래 auto margin이 남는 높이를 차지한다.
+// 전환: 768px 미만은 `.l-cover > .l-center`의 auto margin으로 세로 가운데. 768px 이상은 위 패딩 133px에서 시작하고 아래 auto margin이 남는 높이를 차지한다.
 .password-page {
   padding-inline: 1rem;
 
@@ -27,16 +27,15 @@ body {
   }
 }
 
-// `.center`(content-box, 최대 60ch, 좌우 패딩 1.5rem)를 선언 순서로 덮어쓰므로 `.center`보다 뒤에 둔다.
+// `.l-center`(content-box, 최대 60ch, 좌우 패딩 1.5rem)를 선언 순서로 덮어쓰므로 `.l-center`보다 뒤에 둔다.
 .password-generator {
   box-sizing: border-box;
   inline-size: 100%; //부모의 사용 가능한 너비를 채웁니다.
   max-inline-size: 33.75rem; //기본 설정에서 최대 너비를 540px로 제한합니다.
-  padding-inline: 0; //.center의 좌우 패딩을 없애 바깥 여백과 중복되지 않게 합니다.
+  padding-inline: 0; //.l-center의 좌우 패딩을 없애 바깥 여백과 중복되지 않게 합니다.
 }
 
-// 명시도 (0,2,0): `.cover > .center`, `.stack[data-space='normal']`보다 뒤에 있어야 덮어쓴다.
-// 이 --space는 섹션 스택 간격이면서, data-gap 없는 하위 `.cluster`(비밀번호 줄)의 간격으로도 상속된다.
+// 명시도 (0,2,0): `.l-cover > .l-center`, `.l-stack[data-space='normal']`보다 뒤에 있어야 덮어쓴다.
 .password-page > .password-generator {
   @include mq('tablet') {
     --space: 1.5rem; // 카드 사이 간격: 16 / 24
@@ -49,7 +48,7 @@ body {
   color: v.$grey-600;
   text-align: center;
 
-  // 관계: 제목 아래 간격 = 섹션 스택 gap + margin-block-end. `.stack > *`의 margin 초기화와 명시도가 같아 뒤에 선언되어야 적용된다.
+  // 관계: 제목 아래 간격 = 섹션 스택 gap + margin-block-end. `.l-stack > *`의 margin 초기화와 명시도가 같아 뒤에 선언되어야 적용된다.
   // 전환: 768px 이상에서 16 → 24 + 8 = 32.
   @include mq('tablet') {
     @include text-preset(2);
@@ -57,11 +56,11 @@ body {
   }
 }
 
-// `form` 단독(0,0,1)으로는 `.box`(0,1,0)의 흰 배경을 이기지 못해 `form.box`(0,1,1)로 쓴다.
-// 관계: 폼은 세로 스택이고 자식(길이·체크박스·강도+버튼)은 패딩 안쪽 폭을 가득 채운다. 섹션 간격은 명시도로 `.stack` 기본값(1.5rem)을 덮어쓴다.
+// `form` 단독(0,0,1)으로는 `.l-box`(0,1,0)의 흰 배경을 이기지 못해 `form.l-box`(0,1,1)로 쓴다.
+// 관계: 폼은 세로 스택이고 자식(길이·체크박스·강도+버튼)은 패딩 안쪽 폭을 가득 채운다. 섹션 간격은 명시도로 `.l-stack` 기본값(1.5rem)을 덮어쓴다.
 // 제한: 높이는 고정하지 않으며 패딩과 내용 높이의 합이다.
 // 전환: 768px 이상에서 패딩 16 → 위 24 · 좌우 32 · 아래 41 (Figma 레이어 위치 기준).
-form.box {
+form.l-box {
   --space: 2rem; // 폼 섹션 간격 32 (모든 화면)
   background-color: v.$grey-800;
   color: v.$grey-200;
@@ -91,9 +90,8 @@ form.box {
 }
 
 // 관계: 머리 줄(라벨 ↔ 숫자, 좌우 끝 정렬)과 슬라이더를 세로로 쌓는다. 머리 줄 높이는 줄높이가 더 큰 숫자가 정한다.
-// 이 --space는 data-gap 없는 머리 줄 `.cluster`의 간격으로도 상속된다.
 // 전환: 768px 이상에서 간격 8 → 16.
-.length > .stack {
+.length > .l-stack {
   --space: 0.5rem;
 
   @include mq('tablet') {
@@ -101,7 +99,7 @@ form.box {
   }
 }
 
-// 관계: 비밀번호와 복사 그룹(COPIED + 버튼)은 좌우 끝 정렬 `.cluster` 한 줄에 놓인다. 줄 간격은 섹션 --space(16 / 24)를 상속한다.
+// 관계: 비밀번호와 복사 그룹(COPIED + 버튼)은 좌우 끝 정렬 `.l-cluster` 한 줄에 놓인다. 항목 사이 간격은 `.l-cluster` 기본값 16이다.
 // 제한: 높이는 패딩 + 비밀번호 줄높이(64 / 80)이며 고정하지 않는다. 두 항목 폭의 합이 줄 폭을 넘으면 복사 그룹이 다음 줄로 내려가고,
 //       혼자 남은 비밀번호는 min-width 0과 break-all로 글자 단위 줄바꿈된다.
 // 전환: 768px 이상에서 패딩 16 → 위아래 19 · 좌우 32. JS가 붙이는 `.copied.active`가 복사 그룹 폭을 늘린다.
@@ -249,7 +247,7 @@ input[type='range']::-moz-range-track {
   );
 }
 
-// 관계: 행마다 체크박스(20 × 20, border-box라 테두리 포함)와 설명을 `.cluster`로 왼쪽부터 놓고, 행 사이는 스택 간격 16이다.
+// 관계: 행마다 체크박스(20 × 20, border-box라 테두리 포함)와 설명을 `.l-cluster`로 왼쪽부터 놓고, 행 사이는 스택 간격 16이다.
 // 제한: 기본 fieldset 패딩과 min-inline-size(min-content)를 없애 폼 안쪽 폭을 넘지 않게 한다.
 //       설명이 체크박스 옆 남은 폭에 들어가지 않으면 설명 전체가 체크박스 아래 줄로 내려간다(flex-wrap).
 // 전환: 768px 이상에서 체크박스 → 설명 간격 16 → 24, 설명 글꼴 16/20 → 18/24.
@@ -258,7 +256,7 @@ fieldset {
   padding: 0; // 브라우저 기본 fieldset 패딩 제거
   min-inline-size: 0;
 
-  label.cluster {
+  label.l-cluster {
     cursor: pointer;
 
     // 1. 평소 상태 (빈 네모 박스)
@@ -280,7 +278,7 @@ fieldset {
       border-color: v.$green-200;
     }
 
-    // 체크박스 input을 sr-only로 숨겼기 때문에 Tab으로 이동해도 화면에서는 현재 선택 위치를 알기 어렵습니다.
+    // 체크박스 input을 u-sr-only로 숨겼기 때문에 Tab으로 이동해도 화면에서는 현재 선택 위치를 알기 어렵습니다.
     // 표시용 박스에 포커스를 전달하세요
     input[type='checkbox']:focus-visible + .checkbox-mark {
       outline: 2px solid v.$green-200;
@@ -309,15 +307,14 @@ fieldset {
   }
 }
 
-// `.cluster[data-gap='normal']`(0,2,0)보다 명시도가 높아야 한다(0,2,1).
-.special-letters label.cluster {
+// `.l-cluster[data-gap='normal']`(0,2,0)보다 명시도가 높아야 한다(0,2,1).
+.special-letters label.l-cluster {
   @include mq('tablet') {
     --space: 1.5rem;
   }
 }
 
-// 관계: 강도 박스와 생성 버튼을 폼 섹션 간격(32)과 다른 간격으로 묶는다. `.stack`과 명시도가 같아 뒤에 선언되어야 덮어쓴다.
-// 이 --space는 data-gap 없는 `.strength`(cluster)의 간격으로도 상속된다.
+// 관계: 강도 박스와 생성 버튼을 폼 섹션 간격(32)과 다른 간격으로 묶는다. `.l-stack`과 명시도가 같아 뒤에 선언되어야 덮어쓴다.
 // 전환: 768px 이상에서 16 → 32.
 .strength-actions {
   --space: 1rem;
@@ -327,7 +324,7 @@ fieldset {
   }
 }
 
-// 관계: STRENGTH 라벨과 (단계 텍스트 + 막대 4개) 그룹을 좌우 끝 정렬한다. 패딩은 `.box`의 패딩을 선언 순서로 덮어쓴다.
+// 관계: STRENGTH 라벨과 (단계 텍스트 + 막대 4개) 그룹을 좌우 끝 정렬한다. 패딩은 `.l-box`의 패딩을 선언 순서로 덮어쓴다.
 // 제한: 높이 = 패딩 + 가장 높은 항목(막대·단계 텍스트 28) → 56 / 72. 두 그룹 폭의 합이 줄 폭을 넘으면 그룹이 다음 줄로 내려가 높이가 늘어난다.
 // 전환: 768px 이상에서 패딩 14·16 → 22·32, 라벨 16/20 → 18/24.
 //       단계 텍스트 크기는 미디어 쿼리와 별개로 뷰포트 375px ~ 1024px 사이에서 16px → 24px로 연속 변한다(clamp).
@@ -372,7 +369,7 @@ fieldset {
   }
 }
 
-// 관계: 버튼은 강도 스택의 자식이라 폭을 가득 채우고, 텍스트와 화살표는 `.cluster`로 가운데 놓인다.
+// 관계: 버튼은 강도 스택의 자식이라 폭을 가득 채우고, 텍스트와 화살표는 `.l-cluster`로 가운데 놓인다.
 // 제한: 높이 = 테두리 2 × 2 + 위아래 패딩 + 줄높이 → 56 / 65. 투명 테두리를 항상 두어 hover 때 테두리 색이 생겨도 크기가 바뀌지 않는다.
 // 전환: 768px 이상에서 위아래 패딩 16 → 18.5, 글꼴 16/20 → 18/24, 텍스트 → 화살표 간격 16 → 24.
 .generate-btn {
@@ -416,8 +413,8 @@ fieldset {
   }
 }
 
-// `.cluster[data-gap='normal']`(0,2,0)과 명시도가 같아 뒤에 있어야 한다.
-.generate-btn.cluster {
+// `.l-cluster[data-gap='normal']`(0,2,0)과 명시도가 같아 뒤에 있어야 한다.
+.generate-btn.l-cluster {
   @include mq('tablet') {
     --space: 1.5rem;
   }

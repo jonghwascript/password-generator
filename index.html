@@ -17,21 +17,21 @@
 
   <body>
     <!-- Centered on the screen : Cover + Center -->
-    <main id="main" class="password-page cover">
-      <section class="password-generator stack center" data-space="normal">
+    <main id="main" class="password-page l-cover">
+      <section class="password-generator l-stack l-center" data-space="normal">
         <h1 class="title">Password Generator</h1>
         <div
-          class="output-password box"
+          class="output-password l-box"
           data-border="none"
           data-radius="none"
           data-padding="normal"
         >
-          <div class="cluster" data-justify="between">
+          <div class="l-cluster" data-justify="between">
             <!-- The `<output>` element is suitable for generated passwords or password strength calculation results. Provide a label to indicate its purpose. -->
             <output class="password">P4$5W0rD!</output>
-            <div class="cluster">
+            <div class="l-cluster">
               <span class="copied">COPIED</span>
-              <p id="copy-status" class="sr-only" role="status"></p>
+              <p id="copy-status" class="u-sr-only" role="status"></p>
               <button
                 type="button"
                 class="password-copy"
@@ -53,15 +53,15 @@
         </div>
         <!-- Group the configuration and creation actions within a `<form>`, and use `<fieldset>` and `<legend>` to describe the related checkboxes. -->
         <form
-          class="stack box form-password"
+          class="l-stack l-box form-password"
           data-border="none"
           data-radius="none"
           data-padding="normal"
         >
           <!-- Character Length -->
           <div class="length">
-            <div class="stack">
-              <div class="cluster" data-justify="between">
+            <div class="l-stack">
+              <div class="l-cluster" data-justify="between">
                 <label for="length">Character Length</label>
                 <output id="length-val">0</output>
               </div>
@@ -76,47 +76,52 @@
             </div>
           </div>
           <!-- Character types -->
-          <fieldset class="special-letters stack" data-space="normal">
+          <fieldset class="special-letters l-stack" data-space="normal">
             <!-- The legend is visually hidden but still announced by screen readers as the group name. -->
-            <legend class="sr-only">Character types</legend>
-            <label class="cluster" data-justify="start" data-gap="normal">
-              <input type="checkbox" class="sr-only" name="uppercase" />
+            <legend class="u-sr-only">Character types</legend>
+            <label class="l-cluster" data-justify="start" data-gap="normal">
+              <input type="checkbox" class="u-sr-only" name="uppercase" />
               <span class="checkbox-mark" aria-hidden="true"></span>
               <span class="desc">Include Uppercase Letters</span>
             </label>
-            <label class="cluster" data-justify="start" data-gap="normal">
-              <input type="checkbox" class="sr-only" name="lowercase" checked />
+            <label class="l-cluster" data-justify="start" data-gap="normal">
+              <input
+                type="checkbox"
+                class="u-sr-only"
+                name="lowercase"
+                checked
+              />
               <span class="checkbox-mark" aria-hidden="true"></span>
               <span class="desc">Include Lowercase Letters</span>
             </label>
-            <label class="cluster" data-justify="start" data-gap="normal">
-              <input type="checkbox" class="sr-only" name="numbers" />
+            <label class="l-cluster" data-justify="start" data-gap="normal">
+              <input type="checkbox" class="u-sr-only" name="numbers" />
               <span class="checkbox-mark" aria-hidden="true"></span>
               <span class="desc">Include Numbers</span>
             </label>
-            <label class="cluster" data-justify="start" data-gap="normal">
-              <input type="checkbox" class="sr-only" name="symbols" />
+            <label class="l-cluster" data-justify="start" data-gap="normal">
+              <input type="checkbox" class="u-sr-only" name="symbols" />
               <span class="checkbox-mark" aria-hidden="true"></span>
               <span class="desc">Include Symbols</span>
             </label>
           </fieldset>
           <!-- Strength + Generate: 둘 사이 간격(16 / 32)이 폼 섹션 간격(32)과 달라서 따로 묶는다 -->
-          <div class="strength-actions stack">
+          <div class="strength-actions l-stack">
             <!-- Strength -->
             <div
-              class="strength cluster box"
+              class="strength l-cluster l-box"
               data-justify="between"
               data-border="none"
               data-radius="none"
               data-padding="normal"
             >
               <span id="strength-label">Strength</span>
-              <div class="cluster" data-gap="normal">
+              <div class="l-cluster" data-gap="normal">
                 <output
                   class="strength-value"
                   aria-labelledby="strength-label"
                 ></output>
-                <div class="cluster" aria-hidden="true" data-gap="small">
+                <div class="l-cluster" aria-hidden="true" data-gap="small">
                   <span class="box-strength one"></span>
                   <span class="box-strength two"></span>
                   <span class="box-strength three"></span>
@@ -127,7 +132,7 @@
             <!-- Generate -->
             <button
               type="submit"
-              class="generate-btn cluster"
+              class="generate-btn l-cluster"
               data-gap="normal"
             >
               <span class="btn-name">generate</span>

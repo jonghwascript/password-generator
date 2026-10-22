@@ -115,8 +115,8 @@ These lessons cover the layout, styling, accessibility, and JavaScript problems 
 Each pattern solves a different problem: Stack handles vertical spacing, Box handles the container's padding and borders, Center constrains width and centers horizontally, and Cover provides the space for vertical centering.
 
 ```html
-<main class="password-page cover">
-  <section class="password-generator stack center">
+<main class="password-page l-cover">
+  <section class="password-generator l-stack l-center">
     <h1 class="title">Password Generator</h1>
     <!-- Password result and settings -->
   </section>
@@ -124,7 +124,7 @@ Each pattern solves a different problem: Stack handles vertical spacing, Box han
 ```
 
 ```scss
-.cover > .center {
+.l-cover > .l-center {
   margin-block: auto;
 }
 
@@ -146,7 +146,7 @@ With a 16px root font size, a 375px viewport and 16px gutters leave 343px for co
 
 #### Understand the cascade before increasing specificity
 
-A `.box` background overrides a plain `form` selector even when the latter appears later. A component class can define the form's visual design, while layout classes retain their shared responsibilities.
+A `.l-box` background overrides a plain `form` selector even when the latter appears later. A component class can define the form's visual design, while layout classes retain their shared responsibilities.
 
 Options such as `data-border="none"`, `data-radius="none"`, and `data-padding="normal"` provide reusable Box variations. A button can still have its own padding rules instead of inheriting every Box convention.
 
@@ -157,7 +157,7 @@ The hover issue also reinforced the difference between pseudo-classes and pseudo
 Checkboxes remain native inputs inside labels, with a fieldset and legend identifying their group. Decorative marks are hidden from assistive technology. The copy button has an accessible name, and a separate status region receives a message after a successful copy.
 
 ```html
-<p id="copy-status" class="sr-only" role="status"></p>
+<p id="copy-status" class="u-sr-only" role="status"></p>
 ```
 
 ```js
