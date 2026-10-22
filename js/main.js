@@ -53,8 +53,8 @@ function generatePassword(length, groups) {
 $(function () {
   const $slider = $('#length');
   const $lengthVal = $('#length-val');
-  const $form = $('.form-password');
-  const $copied = $('.password-copy');
+  const $form = $('#password-form');
+  const $copyButton = $('#copy-button');
   let copyTimer;
   let copyRequest = 0;
 
@@ -95,12 +95,12 @@ $(function () {
   function resetCopyFeedback() {
     copyRequest++;
     clearTimeout(copyTimer);
-    $('.copied').removeClass('active');
+    $('#copied').removeClass('active');
     return copyRequest;
   }
 
   function showPassword(password) {
-    $('.password').text(password).addClass('active');
+    $('#password').text(password).addClass('active');
     updateStrength(password);
     resetCopyFeedback();
   }
@@ -120,8 +120,8 @@ $(function () {
     showPassword(generatePassword(settings.length, groups));
   });
 
-  $copied.on('click', async function () {
-    const $password = $('.password');
+  $copyButton.on('click', async function () {
+    const $password = $('#password');
     if (!$password.hasClass('active') || !$password.text()) {
       alert('Please generate a password first.');
       return;
@@ -132,10 +132,10 @@ $(function () {
       await navigator.clipboard.writeText($password.text());
       // Ignore stale results if a new password or copy request was created.
       if (request !== copyRequest) return;
-      $('.copied').addClass('active');
+      $('#copied').addClass('active');
       // Announce successful clipboard copying to screen readers.
       $('#copy-status').text('Password copied to clipboard.');
-      copyTimer = setTimeout(() => $('.copied').removeClass('active'), 2000);
+      copyTimer = setTimeout(() => $('#copied').removeClass('active'), 2000);
     } catch {
       if (request !== copyRequest) return;
       alert('Could not copy the password to the clipboard. Please check your browser permissions.');
@@ -154,8 +154,8 @@ $(function () {
 
     const labels = ['TOO WEAK!', 'WEAK', 'MEDIUM', 'STRONG'];
     const colors = ['bg-red', 'bg-orange', 'bg-yellow', 'bg-green'];
-    $('.strength-value').text(labels[level]);
-    $('.strength .box-strength')
+    $('#strength-value').text(labels[level]);
+    $('#strength-bars').children()
       .removeClass('active bg-red bg-orange bg-yellow bg-green')
       .slice(0, level + 1)
       .addClass(colors[level]);

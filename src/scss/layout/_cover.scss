@@ -15,6 +15,7 @@
 // 화면 세로 정중앙 배치
 // 관계: 세로 flex 안에서 위아래 auto margin이 남는 높이를 나눠 가진다.
 // 제한: min-block-size는 최소값이라, 내용이 (100vh − 위아래 패딩)보다 길면 auto margin이 0이 되고 내용은 위 패딩에서 시작하며 높이가 늘어난다.
+// 위쪽에 고정하려면 `.l-cover` 요소에 `--center-margin-block: 0 auto`를 지정한다.
 .l-cover > .l-center {
-  margin-block: auto;
+  margin-block: var(--center-margin-block, auto);
 }

@@ -115,9 +115,9 @@ These lessons cover the layout, styling, accessibility, and JavaScript problems 
 Each pattern solves a different problem: Stack handles vertical spacing, Box handles the container's padding and borders, Center constrains width and centers horizontally, and Cover provides the space for vertical centering.
 
 ```html
-<main class="password-page l-cover">
-  <section class="password-generator l-stack l-center">
-    <h1 class="title">Password Generator</h1>
+<main class="c-page l-cover">
+  <section class="c-generator l-stack l-center">
+    <h1 class="c-generator__title">Password Generator</h1>
     <!-- Password result and settings -->
   </section>
 </main>
@@ -125,18 +125,17 @@ Each pattern solves a different problem: Stack handles vertical spacing, Box han
 
 ```scss
 .l-cover > .l-center {
-  margin-block: auto;
+  margin-block: var(--center-margin-block, auto);
 }
 
-.password-page {
+.c-page {
   padding-inline: 1rem;
 }
 
-.password-generator {
-  box-sizing: border-box;
+.c-generator {
+  --measure: 33.75rem;
+  --gutter-inline: 0;
   inline-size: 100%;
-  max-inline-size: 33.75rem;
-  padding-inline: 0;
 }
 ```
 
@@ -146,9 +145,21 @@ With a 16px root font size, a 375px viewport and 16px gutters leave 343px for co
 
 #### Understand the cascade before increasing specificity
 
-A `.l-box` background overrides a plain `form` selector even when the latter appears later. A component class can define the form's visual design, while layout classes retain their shared responsibilities.
+A `.l-box` background overrides a plain `form` selector even when the latter appears later. Early versions worked around this with selectors such as `form.l-box`, `.password-page > .password-generator`, and `.generate-btn.l-cluster`, each written only to win a specificity contest.
 
-Options such as `data-border="none"`, `data-radius="none"`, and `data-padding="normal"` provide reusable Box variations. A button can still have its own padding rules instead of inheriting every Box convention.
+The fix was naming, not specificity. Layout classes (`l-`) handle placement and spacing, component classes (`c-`) handle appearance, and every styled element has its own BEM class. Components load after layouts, so a single component class wins. When a component needs a different layout value, it sets the layout's variable instead of using a `data-*` option, because an attribute selector such as `.l-cluster[data-gap='normal']` is more specific than one class:
+
+```scss
+.c-checkbox {
+  --space: 1rem; // read by .l-cluster's gap
+
+  @include mq('tablet') {
+    --space: 1.5rem;
+  }
+}
+```
+
+Options such as `data-border="none"` and `data-radius="none"` remain where a component does not override them.
 
 The hover issue also reinforced the difference between pseudo-classes and pseudo-elements: `&:hover` is valid; `&::hover` is not. Checking the compiled CSS is essential because the browser does not read SCSS directly.
 
@@ -170,7 +181,7 @@ Visual hiding and removal are different: a screen-reader-only utility keeps cont
 
 ```js
 $(function () {
-  const $form = $('.form-password');
+  const $form = $('#password-form');
 
   $form.on('submit', function (event) {
     event.preventDefault();
@@ -181,7 +192,7 @@ $(function () {
 
 `$(function () {})` waits for the DOM. `.on()` registers events, `.val()` reads input values, and `.prop('checked')` reads the current checkbox state. The `$` prefix is a naming convention for jQuery objects.
 
-Selectors must match the markup: `.form-password` selects a class, while `#form-password` would require an id. For password output, `.text()` preserves special characters as text instead of interpreting them as HTML.
+Selectors must match the markup: `#password-form` selects an id, while `.password-form` would require a class. JavaScript looks up elements by id only, so renaming a style class does not break the script. For password output, `.text()` preserves special characters as text instead of interpreting them as HTML.
 
 #### Generate and shuffle characters deliberately
 
@@ -191,12 +202,12 @@ Random indices come from Web Crypto. Rejection sampling discards values outside 
 
 #### Reserve space for dynamic strength text
 
-The strength panel changed height slightly after a password was generated. Initially, `.strength-value` was empty and did not reserve a line of text. Once a rating appeared, its font size and inherited line height increased the space required by the row.
+The strength panel changed height slightly after a password was generated. Initially, the rating element (now `.c-strength__value`) was empty and did not reserve a line of text. Once a rating appeared, its font size and inherited line height increased the space required by the row.
 
 Reserving one line of height stabilized the panel:
 
 ```scss
-.strength-value {
+.c-strength__value {
   line-height: 1.5;
   min-block-size: 1.5em;
 }
