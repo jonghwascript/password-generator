@@ -95,12 +95,12 @@ $(function () {
   function resetCopyFeedback() {
     copyRequest++;
     clearTimeout(copyTimer);
-    $('#copied').removeClass('active');
+    $('#copied').removeClass('is-visible');
     return copyRequest;
   }
 
   function showPassword(password) {
-    $('#password').text(password).addClass('active');
+    $('#password').text(password).addClass('is-generated');
     updateStrength(password);
     resetCopyFeedback();
   }
@@ -122,7 +122,7 @@ $(function () {
 
   $copyButton.on('click', async function () {
     const $password = $('#password');
-    if (!$password.hasClass('active') || !$password.text()) {
+    if (!$password.hasClass('is-generated') || !$password.text()) {
       alert('Please generate a password first.');
       return;
     }
@@ -132,10 +132,10 @@ $(function () {
       await navigator.clipboard.writeText($password.text());
       // Ignore stale results if a new password or copy request was created.
       if (request !== copyRequest) return;
-      $('#copied').addClass('active');
+      $('#copied').addClass('is-visible');
       // Announce successful clipboard copying to screen readers.
       $('#copy-status').text('Password copied to clipboard.');
-      copyTimer = setTimeout(() => $('#copied').removeClass('active'), 2000);
+      copyTimer = setTimeout(() => $('#copied').removeClass('is-visible'), 2000);
     } catch {
       if (request !== copyRequest) return;
       alert('Could not copy the password to the clipboard. Please check your browser permissions.');
@@ -153,11 +153,14 @@ $(function () {
     else if (password.length >= 8 && types >= 2) level = 1;
 
     const labels = ['TOO WEAK!', 'WEAK', 'MEDIUM', 'STRONG'];
-    const colors = ['bg-red', 'bg-orange', 'bg-yellow', 'bg-green'];
+    // State classes read by .c-strength; the level sets the color of the filled bars.
+    const states = ['is-too-weak', 'is-weak', 'is-medium', 'is-strong'];
     $('#strength-value').text(labels[level]);
-    $('#strength-bars').children()
-      .removeClass('active bg-red bg-orange bg-yellow bg-green')
+    $('#strength').removeClass(states.join(' ')).addClass(states[level]);
+    $('#strength-bars')
+      .children()
+      .removeClass('is-filled')
       .slice(0, level + 1)
-      .addClass(colors[level]);
+      .addClass('is-filled');
   }
 });

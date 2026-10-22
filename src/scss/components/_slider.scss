@@ -1,0 +1,76 @@
+@use '../abstracts' as *;
+
+// 관계: 입력 높이(28)는 손잡이 높이와 같고 트랙(8)은 그 안에 그려진다. WebKit 손잡이는 트랙 기준으로 놓여 margin-top −10 = (8 − 28) / 2로 세로 가운데를 맞춘다.
+// 제한: 트랙·손잡이 높이를 바꾸면 margin-top과 입력 높이도 함께 바꿔야 한다. 채워진 구간 폭은 JS가 input에 넣는 --progress(%)를 따른다.
+// 전환: 별도 전환 없음 (hover·focus는 손잡이 색과 테두리만 바꾼다).
+.c-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 1.75rem; // 손잡이 높이(28)만큼 차지해야 Figma 슬라이더 높이와 맞는다
+  background: transparent; // 트랙은 아래 가상 요소에서 직접 그린다
+  cursor: pointer;
+
+  // 포커스 표시는 손잡이 색 반전으로 대신한다
+  &:focus {
+    outline: none;
+  }
+
+  // 크롬, 사파리, 엣지용 트랙
+  &::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8px;
+    // CSS 변수를 이용해 지나간 부분(네온 그린)과 안 지나간 부분(검정)을 나눔
+    background: linear-gradient(
+      to right,
+      $green-200 var(--progress, 50%),
+      $grey-850 var(--progress, 50%)
+    );
+  }
+
+  // 파이어폭스용 트랙
+  &::-moz-range-track {
+    width: 100%;
+    height: 8px;
+    background: linear-gradient(
+      to right,
+      $green-200 var(--progress, 50%),
+      $grey-850 var(--progress, 50%)
+    );
+  }
+
+  // 크롬, 사파리, 엣지용 손잡이
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none; // 기본 스타일 제거 (필수)
+    width: 28px;
+    height: 28px;
+    margin-top: -10px; // 트랙 중앙에 맞추기 위해 위로 당김
+    border: 1px solid transparent; // 호버 시 테두리만 남기기 위한 대비책
+    border-radius: 50%;
+    background-color: $grey-200;
+    transition: all 0.2s;
+  }
+
+  // 파이어폭스용 손잡이
+  &::-moz-range-thumb {
+    width: 28px;
+    height: 28px;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    background-color: $grey-200;
+    transition: all 0.2s;
+  }
+
+  // 마우스를 올렸을 때 / 포커스 시 손잡이 색상 반전
+  &::-webkit-slider-thumb:hover,
+  &:focus::-webkit-slider-thumb {
+    border: 2px solid $green-200;
+    background-color: $grey-950;
+  }
+
+  &::-moz-range-thumb:hover,
+  &:focus::-moz-range-thumb {
+    border: 2px solid $green-200;
+    background-color: $grey-850;
+  }
+}

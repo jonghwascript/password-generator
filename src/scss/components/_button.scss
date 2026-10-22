@@ -1,0 +1,51 @@
+@use '../abstracts' as *;
+
+// 관계: 버튼은 강도 스택의 자식이라 폭을 가득 채우고, 텍스트와 화살표는 `.l-cluster`로 가운데 놓인다.
+// 제한: 높이 = 테두리 2 × 2 + 위아래 패딩 + 줄높이 → 56 / 65. 투명 테두리를 항상 두어 hover 때 테두리 색이 생겨도 크기가 바뀌지 않는다.
+// 전환: 768px 이상에서 위아래 패딩 16 → 18.5, 글꼴 16/20 → 18/24, 텍스트 → 화살표 간격 16 → 24.
+.c-button {
+  --space: 1rem;
+  padding-block: 1rem;
+  padding-inline: 1rem;
+  border: 2px solid transparent;
+  background-color: $green-200;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $green-200;
+    background-color: $grey-950;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $green-200;
+    outline-offset: 4px;
+  }
+
+  @include mq('tablet') {
+    --space: 1.5rem;
+    padding-block: 1.15625rem;
+  }
+
+  &__label {
+    @include text-preset(4);
+    color: $grey-800;
+    text-transform: uppercase;
+
+    @include mq('tablet') {
+      @include text-preset(3);
+    }
+  }
+
+  &__icon {
+    width: 0.75rem;
+    height: auto;
+  }
+
+  &:hover &__label {
+    color: $green-200;
+  }
+
+  &:hover &__icon path {
+    fill: $green-200;
+  }
+}

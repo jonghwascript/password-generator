@@ -1,0 +1,62 @@
+@use '../abstracts' as *;
+
+// 관계: 폼은 세로 스택이고 자식(길이·체크박스·강도+버튼)은 패딩 안쪽 폭을 가득 채운다.
+// 제한: 높이는 고정하지 않으며 패딩과 내용 높이의 합이다.
+// 전환: 768px 이상에서 패딩 16 → 위 24 · 좌우 32 · 아래 41 (Figma 레이어 위치 기준).
+.c-options {
+  --space: 2rem; // 폼 섹션 간격 32 (모든 화면)
+  --padding: 1rem;
+  background-color: $grey-800;
+  color: $grey-200;
+
+  @include mq('tablet') {
+    padding-block: 1.5rem 2.5625rem;
+    padding-inline: 2rem;
+  }
+
+  // 관계: 행마다 체크박스와 설명을 놓고, 행 사이는 스택 간격 16이다.
+  // 제한: 기본 fieldset 패딩과 min-inline-size(min-content)를 없애 폼 안쪽 폭을 넘지 않게 한다.
+  &__types {
+    min-inline-size: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  // 관계: 강도 박스와 생성 버튼을 폼 섹션 간격(32)과 다른 간격으로 묶는다.
+  // 전환: 768px 이상에서 16 → 32.
+  &__actions {
+    --space: 1rem;
+
+    @include mq('tablet') {
+      --space: 2rem;
+    }
+  }
+}
+
+// 관계: 머리 줄(라벨 ↔ 숫자, 좌우 끝 정렬)과 슬라이더를 세로로 쌓는다. 머리 줄 높이는 줄높이가 더 큰 숫자가 정한다.
+// 전환: 768px 이상에서 간격 8 → 16.
+.c-length {
+  --space: 0.5rem;
+
+  @include mq('tablet') {
+    --space: 1rem;
+  }
+
+  &__label {
+    @include text-preset(4);
+    color: $grey-200;
+
+    @include mq('tablet') {
+      @include text-preset(3);
+    }
+  }
+
+  &__value {
+    @include text-preset(2);
+    color: $green-200;
+
+    @include mq('tablet') {
+      @include text-preset(1);
+    }
+  }
+}

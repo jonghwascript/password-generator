@@ -1,4 +1,3 @@
-@charset "UTF-8";
 @font-face {
   font-family: "JetBrains Mono";
   src: url("../fonts/JetBrainsMono-VariableFont_wght.ttf") format("truetype");
@@ -61,16 +60,11 @@ h4 {
   max-width: 60ch;
 }
 
-.u-sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+body {
+  background-color: #08070b;
+  background-image: linear-gradient(to right, #14131b, #08070b);
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 700;
 }
 
 .l-box {
@@ -204,23 +198,13 @@ h4 {
   margin-block: var(--center-margin-block, auto);
 }
 
-body {
-  background-color: #08070b;
-  background-image: linear-gradient(to right, #14131b, #08070b);
-  font-family: "JetBrains Mono", monospace;
-  font-weight: 700;
-}
-
 .c-page {
   padding-inline: 1rem;
-  /* 맵에 해당 기기 이름이 있는지 확인 */
-  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
 }
 @media (min-width: 768px) {
   .c-page {
     --center-margin-block: 0 auto;
     padding-block-start: 8.3125rem;
-    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
   }
 }
 
@@ -229,13 +213,10 @@ body {
   --gutter-inline: 0;
   --space: 1rem;
   inline-size: 100%;
-  /* 맵에 해당 기기 이름이 있는지 확인 */
-  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
 }
 @media (min-width: 768px) {
   .c-generator {
     --space: 1.5rem;
-    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
   }
 }
 .c-generator__title {
@@ -245,8 +226,6 @@ body {
   line-height: 1.25rem;
   color: #817d92;
   text-align: center;
-  /* 맵에 해당 기기 이름이 있는지 확인 */
-  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
 }
 @media (min-width: 768px) {
   .c-generator__title {
@@ -255,21 +234,17 @@ body {
     font-weight: 700;
     line-height: 2rem;
     margin-block-end: 0.5rem;
-    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
   }
 }
 
 .c-output {
   --padding: 1rem;
   background-color: #24232c;
-  /* 맵에 해당 기기 이름이 있는지 확인 */
-  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
 }
 @media (min-width: 768px) {
   .c-output {
     padding-block: 1.1875rem;
     padding-inline: 2rem;
-    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
   }
 }
 .c-output__password {
@@ -281,12 +256,8 @@ body {
   color: #54535b;
   word-break: break-all;
 }
-.c-output__password.active {
+.c-output__password.is-generated {
   color: hsl(0, 100%, 100%);
-}
-.c-output__password {
-  /* 맵에 해당 기기 이름이 있는지 확인 */
-  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
 }
 @media (min-width: 768px) {
   .c-output__password {
@@ -294,13 +265,12 @@ body {
     font-size: 2rem;
     font-weight: 700;
     line-height: 2.625rem;
-    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
   }
 }
 .c-output__copied {
   display: none;
 }
-.c-output__copied.active {
+.c-output__copied.is-visible {
   display: block;
   font-family: "JetBrains Mono", monospace;
   font-size: 1.125rem;
@@ -315,16 +285,17 @@ body {
 .c-output__copy:hover path {
   fill: hsl(0, 100%, 100%);
 }
+.c-output__copy:focus-visible {
+  outline: 2px solid #a4ffaf;
+  outline-offset: 4px;
+}
 .c-output__copy-icon {
   width: 1.09375rem;
   height: auto;
-  /* 맵에 해당 기기 이름이 있는지 확인 */
-  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
 }
 @media (min-width: 768px) {
   .c-output__copy-icon {
     width: 1.3125rem;
-    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
   }
 }
 
@@ -333,14 +304,11 @@ body {
   --padding: 1rem;
   background-color: #24232c;
   color: #e6e5ea;
-  /* 맵에 해당 기기 이름이 있는지 확인 */
-  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
 }
 @media (min-width: 768px) {
   .c-options {
     padding-block: 1.5rem 2.5625rem;
     padding-inline: 2rem;
-    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
   }
 }
 .c-options__types {
@@ -350,25 +318,19 @@ body {
 }
 .c-options__actions {
   --space: 1rem;
-  /* 맵에 해당 기기 이름이 있는지 확인 */
-  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
 }
 @media (min-width: 768px) {
   .c-options__actions {
     --space: 2rem;
-    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
   }
 }
 
 .c-length {
   --space: 0.5rem;
-  /* 맵에 해당 기기 이름이 있는지 확인 */
-  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
 }
 @media (min-width: 768px) {
   .c-length {
     --space: 1rem;
-    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
   }
 }
 .c-length__label {
@@ -377,8 +339,6 @@ body {
   font-weight: 700;
   line-height: 1.25rem;
   color: #e6e5ea;
-  /* 맵에 해당 기기 이름이 있는지 확인 */
-  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
 }
 @media (min-width: 768px) {
   .c-length__label {
@@ -386,7 +346,6 @@ body {
     font-size: 1.125rem;
     font-weight: 700;
     line-height: 1.5rem;
-    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
   }
 }
 .c-length__value {
@@ -395,8 +354,6 @@ body {
   font-weight: 700;
   line-height: 2rem;
   color: #a4ffaf;
-  /* 맵에 해당 기기 이름이 있는지 확인 */
-  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
 }
 @media (min-width: 768px) {
   .c-length__value {
@@ -404,7 +361,6 @@ body {
     font-size: 2rem;
     font-weight: 700;
     line-height: 2.625rem;
-    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
   }
 }
 
@@ -459,13 +415,10 @@ body {
 .c-checkbox {
   --space: 1rem;
   cursor: pointer;
-  /* 맵에 해당 기기 이름이 있는지 확인 */
-  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
 }
 @media (min-width: 768px) {
   .c-checkbox {
     --space: 1.5rem;
-    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
   }
 }
 .c-checkbox__mark {
@@ -478,8 +431,6 @@ body {
   font-size: 1rem;
   font-weight: 700;
   line-height: 1.25rem;
-  /* 맵에 해당 기기 이름이 있는지 확인 */
-  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
 }
 @media (min-width: 768px) {
   .c-checkbox__label {
@@ -487,7 +438,6 @@ body {
     font-size: 1.125rem;
     font-weight: 700;
     line-height: 1.5rem;
-    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
   }
 }
 
@@ -518,14 +468,23 @@ body {
   padding-block: 0.875rem;
   padding-inline: 1rem;
   background-color: #18171f;
-  /* 맵에 해당 기기 이름이 있는지 확인 */
-  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
+}
+.c-strength.is-too-weak .c-strength__bar.is-filled {
+  background-color: #f64a4a;
+}
+.c-strength.is-weak .c-strength__bar.is-filled {
+  background-color: #fb7c58;
+}
+.c-strength.is-medium .c-strength__bar.is-filled {
+  background-color: #f8cd65;
+}
+.c-strength.is-strong .c-strength__bar.is-filled {
+  background-color: #a4ffaf;
 }
 @media (min-width: 768px) {
   .c-strength {
     padding-block: 1.375rem;
     padding-inline: 2rem;
-    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
   }
 }
 .c-strength__label {
@@ -535,8 +494,6 @@ body {
   line-height: 1.25rem;
   color: #817d92;
   text-transform: uppercase;
-  /* 맵에 해당 기기 이름이 있는지 확인 */
-  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
 }
 @media (min-width: 768px) {
   .c-strength__label {
@@ -544,7 +501,6 @@ body {
     font-size: 1.125rem;
     font-weight: 700;
     line-height: 1.5rem;
-    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
   }
 }
 .c-strength__value {
@@ -557,10 +513,6 @@ body {
   width: 0.625rem;
   height: 1.75rem;
   border: 0.125rem solid #e6e5ea;
-}
-.c-strength__bar.active {
-  border-color: #e6e5ea;
-  background-color: #f8cd65;
 }
 
 .c-button {
@@ -575,15 +527,14 @@ body {
   border-color: #a4ffaf;
   background-color: #08070b;
 }
-.c-button {
-  /* 맵에 해당 기기 이름이 있는지 확인 */
-  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
+.c-button:focus-visible {
+  outline: 2px solid #a4ffaf;
+  outline-offset: 4px;
 }
 @media (min-width: 768px) {
   .c-button {
     --space: 1.5rem;
     padding-block: 1.15625rem;
-    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
   }
 }
 .c-button__label {
@@ -593,8 +544,6 @@ body {
   line-height: 1.25rem;
   color: #24232c;
   text-transform: uppercase;
-  /* 맵에 해당 기기 이름이 있는지 확인 */
-  /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
 }
 @media (min-width: 768px) {
   .c-button__label {
@@ -602,7 +551,6 @@ body {
     font-size: 1.125rem;
     font-weight: 700;
     line-height: 1.5rem;
-    /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
   }
 }
 .c-button__icon {
@@ -616,25 +564,15 @@ body {
   fill: #a4ffaf;
 }
 
-.c-output__copy:focus-visible,
-.c-button:focus-visible {
-  outline: 2px solid #a4ffaf;
-  outline-offset: 4px;
-}
-
-.bg-green {
-  background-color: #a4ffaf;
-}
-
-.bg-yellow {
-  background-color: #f8cd65;
-}
-
-.bg-orange {
-  background-color: #fb7c58;
-}
-
-.bg-red {
-  background-color: #f64a4a;
+.u-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 /*# sourceMappingURL=style.css.map */

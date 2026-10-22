@@ -37,12 +37,12 @@ The current implementation lets users:
 
 Passwords use `crypto.getRandomValues()` for random selection. The strength display uses a simple length-and-character-variety rule, not an estimate of actual cracking time.
 
-| Highest matching condition | Label | Filled bars | Color class |
+| Highest matching condition | Label | Filled bars | State class on `.c-strength` |
 | --- | --- | --- | --- |
-| None of the conditions below | TOO WEAK! | 1 | `bg-red` |
-| At least 8 characters and 2 character types | WEAK | 2 | `bg-orange` |
-| At least 12 characters and 3 character types | MEDIUM | 3 | `bg-yellow` |
-| At least 16 characters and all 4 character types | STRONG | 4 | `bg-green` |
+| None of the conditions below | TOO WEAK! | 1 | `is-too-weak` (red) |
+| At least 8 characters and 2 character types | WEAK | 2 | `is-weak` (orange) |
+| At least 12 characters and 3 character types | MEDIUM | 3 | `is-medium` (yellow) |
+| At least 16 characters and all 4 character types | STRONG | 4 | `is-strong` (green) |
 
 ### Requirement status
 
@@ -223,7 +223,7 @@ This fixes the height change caused by initially empty text. On narrow screens, 
 
 Clipboard copying can finish after another click or after a new password is generated. A request counter prevents stale completions from changing the current feedback. Clearing the previous timer prevents an earlier click from hiding a newer confirmation too soon.
 
-The visual state uses `addClass('active')` and `removeClass('active')`. Mixing this with `.hide()` would leave an inline `display: none` that the active class does not undo.
+The visual state uses `is-` classes such as `addClass('is-visible')` and `removeClass('is-visible')`. Each state class is always written together with its component (`.c-output__copied.is-visible`), so the same name cannot affect another component. Mixing this with `.hide()` would leave an inline `display: none` that the state class does not undo.
 
 #### Separate verification and commit responsibilities
 

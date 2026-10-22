@@ -34,13 +34,13 @@
   background: linear-gradient($direction, $start-color, $end-color);
 }
 
+// `//` 주석을 쓴다. `/* */` 주석은 미디어 쿼리마다 컴파일된 CSS에 복사된다.
 @mixin mq($device) {
-  /* 맵에 해당 기기 이름이 있는지 확인 */
+  // 맵에 해당 기기 이름이 있는지 확인
   @if map.has-key(v.$breakpoints, $device) {
-    /* 🌟 min-width 기준으로 미디어 쿼리 자동 생성 */
+    // min-width 기준으로 미디어 쿼리 생성. @content에 호출한 쪽의 스타일이 들어간다.
     @media (min-width: map.get(v.$breakpoints, $device)) {
       @content;
-      /* 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다 */
     }
   } @else {
     @error '브레이크포인트 "#{$device}"가 존재하지 않습니다.';

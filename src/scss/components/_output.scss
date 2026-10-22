@@ -1,0 +1,71 @@
+@use '../abstracts' as *;
+
+// 관계: 비밀번호와 복사 그룹(COPIED + 버튼)은 좌우 끝 정렬 `.l-cluster` 한 줄에 놓인다. 항목 사이 간격은 `.l-cluster` 기본값 16이다.
+// 제한: 높이는 패딩 + 비밀번호 줄높이(64 / 80)이며 고정하지 않는다. 두 항목 폭의 합이 줄 폭을 넘으면 복사 그룹이 다음 줄로 내려가고,
+//       혼자 남은 비밀번호는 min-width 0과 break-all로 글자 단위 줄바꿈된다.
+// 전환: 768px 이상에서 패딩 16 → 위아래 19 · 좌우 32. JS가 붙이는 `.is-visible`이 COPIED를 보이게 해 복사 그룹 폭을 늘린다.
+.c-output {
+  --padding: 1rem;
+  background-color: $grey-800;
+
+  @include mq('tablet') {
+    padding-block: 1.1875rem;
+    padding-inline: 2rem;
+  }
+
+  &__password {
+    // Flex item에는 기본적으로 `min-width: auto`가 적용되고, 이 때문에 콘텐츠보다 작아지지 않으려고 한다
+    min-width: 0;
+    @include text-preset(2);
+    color: $grey-700;
+    word-break: break-all;
+
+    // 생성된 비밀번호가 표시된 상태 (JS)
+    &.is-generated {
+      color: $white;
+    }
+
+    @include mq('tablet') {
+      @include text-preset(1);
+    }
+  }
+
+  &__copied {
+    display: none;
+
+    // 복사 직후 2초 동안 보이는 상태 (JS)
+    &.is-visible {
+      display: block;
+      font-family: $font-primary;
+      font-size: 1.125rem;
+      color: $green-200;
+    }
+  }
+
+  &__copy {
+    padding: 0; // 브라우저 기본 버튼 패딩 제거
+    border: 0;
+    background-color: $grey-800;
+    cursor: pointer;
+
+    // Hover는 가상 클래스이므로 콜론을 하나만 사용한다.
+    &:hover path {
+      fill: $white;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $green-200;
+      outline-offset: 4px;
+    }
+  }
+
+  // 아이콘: 17.5 × 20 / 21 × 24. 높이는 viewBox(21 × 24) 비율로 정해진다.
+  &__copy-icon {
+    width: 1.09375rem;
+    height: auto;
+
+    @include mq('tablet') {
+      width: 1.3125rem;
+    }
+  }
+}
