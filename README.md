@@ -30,7 +30,7 @@ The current implementation lets users:
 
 - Choose a password length from 1 to 20 characters.
 - Include uppercase letters, lowercase letters, numbers, and symbols.
-- Generate a lowercase-only password when no character types are selected.
+- Start with lowercase letters selected, and get an alert instead of a password when every character type is cleared.
 - Include at least one character from every selected type. The requested length must accommodate those types.
 - See the generated password and a four-level strength indicator.
 - Copy the result and see a confirmation for two seconds, with a separate screen reader status message.
@@ -50,7 +50,7 @@ The following status is based on source review and layout measurements, not a co
 
 | Requirement | Status | Remaining work |
 | --- | --- | --- |
-| Generate passwords using selected options | Implemented | Selected types are included; no selection defaults to lowercase. |
+| Generate passwords using selected options | Implemented | Only selected types are used; generation is blocked when none is selected. |
 | Copy the generated password to the clipboard | Implemented; browser verification pending | Verify successful copying and permission failures in actual browsers. |
 | Display a password strength rating | Implemented | Four levels are shown using the simple rule described above. |
 | Adapt the interface to different screen sizes | Implemented; layout measured at 375, 768, and 1440px | Check viewports narrower than 375px, long passwords, copy feedback, and zoom. |
@@ -253,7 +253,6 @@ The password row, checkbox rows, and strength panel use Cluster's `flex-wrap: wr
 #### Further improvements
 
 - Improve the strength model so that long single-type passwords are not automatically assigned the lowest rating.
-- Explain the lowercase fallback near the character options.
 - Review remaining HTML and CSS issues, including decorative SVG semantics and selector typos such as `spcial-letters` and `bg-yello`.
 - Replace blocking alerts with associated inline validation where appropriate.
 - Add browser tests for generation, clipboard failure, repeated clicks, and regeneration during a pending copy.

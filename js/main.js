@@ -48,8 +48,9 @@ $(function () {
       return;
     }
     if (groups.length === 0) {
-      // Use only lowercase letters when no options are selected.
-      groups.push('abcdefghijklmnopqrstuvwxyz');
+      // Do not add a character type the user has not selected.
+      alert('Select at least one character type.');
+      return;
     }
     if (length < groups.length) {
       alert(
