@@ -6,11 +6,13 @@
   display: flex;
   // 자식 요소들이 넘치면 자연스럽게 줄바꿈 허용
   flex-wrap: wrap;
-  // 간격 설정 (기본 1rem)
+  // 간격 설정
+  // 관계: data-gap이 없으면 --space를 직접 정하지 않으므로, 가장 가까운 조상(.stack·.cover 등)의 --space를 상속해 간격으로 쓴다.
+  // 1rem은 어느 조상도 --space를 정하지 않았을 때만 쓰인다.
   gap: var(--space, 1rem);
-  // 가로 정렬 방식 선택 (기본값 flex-start)
+  // 가로 정렬 기본값: 가운데 (data-justify로 바꾼다)
   justify-content: center;
-  // 세로 정렬 방식 선택 (기본값 flex-start)
+  // 세로 정렬: 가운데
   align-items: center;
 }
 
