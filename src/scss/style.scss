@@ -10,7 +10,7 @@
 @use './layout/cover' as *;
 
 body {
-  background-color: v.$Grey-950; // 그라디언트 미지원 대비
+  background-color: v.$grey-950; // 그라디언트 미지원 대비
   background-image: v.$bg-gradient;
   font-family: v.$font-primary;
   font-weight: 700;
@@ -46,7 +46,7 @@ body {
 
 .title {
   @include text-preset(4);
-  color: v.$Grey-600;
+  color: v.$grey-600;
   text-align: center;
 
   // 관계: 제목 아래 간격 = 섹션 스택 gap + margin-block-end. `.stack > *`의 margin 초기화와 명시도가 같아 뒤에 선언되어야 적용된다.
@@ -63,8 +63,8 @@ body {
 // 전환: 768px 이상에서 패딩 16 → 위 24 · 좌우 32 · 아래 41 (Figma 레이어 위치 기준).
 form.box {
   --space: 2rem; // 폼 섹션 간격 32 (모든 화면)
-  background-color: v.$Grey-800;
-  color: v.$Grey-200;
+  background-color: v.$grey-800;
+  color: v.$grey-200;
 
   @include mq('tablet') {
     padding-block: 1.5rem 2.5625rem;
@@ -73,7 +73,7 @@ form.box {
 
   label[for='length'] {
     @include text-preset(4);
-    color: v.$Grey-200;
+    color: v.$grey-200;
 
     @include mq('tablet') {
       @include text-preset(3);
@@ -82,7 +82,7 @@ form.box {
 
   #length-val {
     @include text-preset(2);
-    color: v.$Green-200;
+    color: v.$green-200;
 
     @include mq('tablet') {
       @include text-preset(1);
@@ -106,7 +106,7 @@ form.box {
 //       혼자 남은 비밀번호는 min-width 0과 break-all로 글자 단위 줄바꿈된다.
 // 전환: 768px 이상에서 패딩 16 → 위아래 19 · 좌우 32. JS가 붙이는 `.copied.active`가 복사 그룹 폭을 늘린다.
 .output-password {
-  background-color: v.$Grey-800;
+  background-color: v.$grey-800;
 
   @include mq('tablet') {
     padding-block: 1.1875rem;
@@ -115,7 +115,7 @@ form.box {
 
   .password {
     @include text-preset(2);
-    color: v.$Grey-700;
+    color: v.$grey-700;
 
     @include mq('tablet') {
       @include text-preset(1);
@@ -126,7 +126,7 @@ form.box {
     word-break: break-all;
 
     &.active {
-      color: v.$White;
+      color: v.$white;
     }
   }
 
@@ -137,12 +137,12 @@ form.box {
       font-family: v.$font-primary;
       font-size: 1.125rem;
       display: block;
-      color: v.$Green-200;
+      color: v.$green-200;
     }
   }
 
   .password-copy {
-    background-color: v.$Grey-800;
+    background-color: v.$grey-800;
     border: 0;
     padding: 0; // 브라우저 기본 버튼 패딩 제거
     cursor: pointer;
@@ -160,7 +160,7 @@ form.box {
     // Hover는 가상 클래스이므로 콜론을 하나만 사용한다.
     &:hover {
       .copy-svg path {
-        fill: v.$White;
+        fill: v.$white;
       }
     }
   }
@@ -193,7 +193,7 @@ input[type='range']::-webkit-slider-thumb {
   height: 28px;
   width: 28px;
   border-radius: 50%;
-  background-color: v.$Grey-200;
+  background-color: v.$grey-200;
   border: 1px solid transparent;
   /* 호버 시 테두리만 남기기 위한 대비책 */
   margin-top: -10px;
@@ -206,7 +206,7 @@ input[type='range']::-moz-range-thumb {
   height: 28px;
   width: 28px;
   border-radius: 50%;
-  background-color: v.$Grey-200;
+  background-color: v.$grey-200;
   border: 2px solid transparent;
   transition: all 0.2s;
 }
@@ -214,16 +214,16 @@ input[type='range']::-moz-range-thumb {
 /* 마우스를 올렸을 때(Hover) / 포커스 시 손잡이 색상 반전 효과 */
 input[type='range']::-webkit-slider-thumb:hover,
 input[type='range']:focus::-webkit-slider-thumb {
-  background-color: v.$Grey-950;
+  background-color: v.$grey-950;
   /* 검은색 배경 */
-  border: 2px solid v.$Green-200;
+  border: 2px solid v.$green-200;
   /* 테두리는 네온 그린 */
 }
 
 input[type='range']::-moz-range-thumb:hover,
 input[type='range']:focus::-moz-range-thumb {
-  background-color: v.$Grey-850;
-  border: 2px solid v.$Green-200;
+  background-color: v.$grey-850;
+  border: 2px solid v.$green-200;
 }
 
 /* 💡 크롬, 사파리, 엣지용 트랙 */
@@ -233,8 +233,8 @@ input[type='range']::-webkit-slider-runnable-track {
   /* CSS 변수를 이용해 지나간 부분(네온 그린)과 안 지나간 부분(검정)을 나눔 */
   background: linear-gradient(
     to right,
-    v.$Green-200 var(--progress, 50%),
-    v.$Grey-850 var(--progress, 50%)
+    v.$green-200 var(--progress, 50%),
+    v.$grey-850 var(--progress, 50%)
   );
 }
 
@@ -244,8 +244,8 @@ input[type='range']::-moz-range-track {
   height: 8px;
   background: linear-gradient(
     to right,
-    v.$Green-200 var(--progress, 50%),
-    v.$Grey-850 var(--progress, 50%)
+    v.$green-200 var(--progress, 50%),
+    v.$grey-850 var(--progress, 50%)
   );
 }
 
@@ -266,24 +266,24 @@ fieldset {
       position: relative;
       width: 1.25rem;
       height: 1.25rem;
-      border: 0.125rem solid v.$Grey-200;
+      border: 0.125rem solid v.$grey-200;
     }
 
     // 2. hover 시 테두리 색상 강조 (선택 사항)
     &:hover input:not(:checked) + .checkbox-mark {
-      border-color: v.$Green-200;
+      border-color: v.$green-200;
     }
 
     // 3. 체크되었을 때의 상태 (배경색 채우기)
     input[type='checkbox']:checked + .checkbox-mark {
-      background-color: v.$Green-200;
-      border-color: v.$Green-200;
+      background-color: v.$green-200;
+      border-color: v.$green-200;
     }
 
     // 체크박스 input을 sr-only로 숨겼기 때문에 Tab으로 이동해도 화면에서는 현재 선택 위치를 알기 어렵습니다.
     // 표시용 박스에 포커스를 전달하세요
     input[type='checkbox']:focus-visible + .checkbox-mark {
-      outline: 2px solid v.$Green-200;
+      outline: 2px solid v.$green-200;
       outline-offset: 3px;
     }
 
@@ -310,7 +310,7 @@ fieldset {
 }
 
 // `.cluster[data-gap='normal']`(0,2,0)보다 명시도가 높아야 한다(0,2,1).
-.spcial-letters label.cluster {
+.special-letters label.cluster {
   @include mq('tablet') {
     --space: 1.5rem;
   }
@@ -332,7 +332,7 @@ fieldset {
 // 전환: 768px 이상에서 패딩 14·16 → 22·32, 라벨 16/20 → 18/24.
 //       단계 텍스트 크기는 미디어 쿼리와 별개로 뷰포트 375px ~ 1024px 사이에서 16px → 24px로 연속 변한다(clamp).
 .strength {
-  background-color: v.$Grey-850;
+  background-color: v.$grey-850;
   padding-block: 0.875rem;
   padding-inline: 1rem;
 
@@ -343,7 +343,7 @@ fieldset {
 
   #strength-label {
     @include text-preset(4);
-    color: v.$Grey-600;
+    color: v.$grey-600;
     text-transform: uppercase;
 
     @include mq('tablet') {
@@ -354,7 +354,7 @@ fieldset {
   // 강도 단계 텍스트는 Figma 빈 상태 프레임에 없어 크기를 확인할 수 없다(기존 값 유지).
   .strength-value {
     font-size: clamp(1rem, 0.7111rem + 1.2327vw, 1.5rem);
-    color: v.$Grey-200;
+    color: v.$grey-200;
     // 막대 높이(28)에 맞춰 줄높이를 고정해, 텍스트가 생겨도 박스 높이가 바뀌지 않게 한다.
     line-height: 1.75rem;
     min-block-size: 1.75rem;
@@ -363,11 +363,11 @@ fieldset {
   .box-strength {
     width: 0.625rem;
     height: 1.75rem; // 28px
-    border: 0.125rem solid v.$Grey-200;
+    border: 0.125rem solid v.$grey-200;
 
     &.active {
-      background-color: v.$Yello-300;
-      border-color: v.$Grey-200;
+      background-color: v.$yellow-300;
+      border-color: v.$grey-200;
     }
   }
 }
@@ -381,7 +381,7 @@ fieldset {
 
   .btn-name {
     @include text-preset(4);
-    color: v.$Grey-800;
+    color: v.$grey-800;
     text-transform: uppercase;
 
     @include mq('tablet') {
@@ -396,22 +396,22 @@ fieldset {
 
   padding-block: 1rem;
   padding-inline: 1rem;
-  background-color: v.$Green-200;
+  background-color: v.$green-200;
 
   @include mq('tablet') {
     padding-block: 1.15625rem;
   }
 
   &:hover {
-    border: 2px solid v.$Green-200;
-    background-color: v.$Grey-950;
+    border: 2px solid v.$green-200;
+    background-color: v.$grey-950;
 
     .btn-name {
-      color: v.$Green-200;
+      color: v.$green-200;
     }
 
     .btn-arrow path {
-      fill: v.$Green-200;
+      fill: v.$green-200;
     }
   }
 }
@@ -424,19 +424,19 @@ fieldset {
 }
 
 .bg-green {
-  background-color: v.$Green-200;
+  background-color: v.$green-200;
 }
 
-.bg-yello {
-  background-color: v.$Yello-300;
+.bg-yellow {
+  background-color: v.$yellow-300;
 }
 
 .bg-orange {
-  background-color: v.$Orange-400;
+  background-color: v.$orange-400;
 }
 
 .bg-red {
-  background-color: v.$Red-500;
+  background-color: v.$red-500;
 }
 
 //복사·생성 버튼은 hover 스타일은 있지만 별도 focus 스타일이 없습니다.
@@ -444,6 +444,6 @@ fieldset {
 //명확하게 통일하려면 다음을 추가할 수 있습니다.
 .password-copy:focus-visible,
 .generate-btn:focus-visible {
-  outline: 2px solid v.$Green-200;
+  outline: 2px solid v.$green-200;
   outline-offset: 4px;
 }

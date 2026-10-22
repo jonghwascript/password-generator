@@ -41,7 +41,7 @@ Passwords use `crypto.getRandomValues()` for random selection. The strength disp
 | --- | --- | --- | --- |
 | None of the conditions below | TOO WEAK! | 1 | `bg-red` |
 | At least 8 characters and 2 character types | WEAK | 2 | `bg-orange` |
-| At least 12 characters and 3 character types | MEDIUM | 3 | `bg-yello` |
+| At least 12 characters and 3 character types | MEDIUM | 3 | `bg-yellow` |
 | At least 16 characters and all 4 character types | STRONG | 4 | `bg-green` |
 
 ### Requirement status
@@ -253,7 +253,7 @@ The password row, checkbox rows, and strength panel use Cluster's `flex-wrap: wr
 #### Further improvements
 
 - Improve the strength model so that long single-type passwords are not automatically assigned the lowest rating.
-- Review remaining HTML and CSS issues, including decorative SVG semantics and selector typos such as `spcial-letters` and `bg-yello`.
+- Review remaining HTML issues, such as decorative SVG semantics.
 - Replace blocking alerts with associated inline validation where appropriate.
 - Add browser tests for generation, clipboard failure, repeated clicks, and regeneration during a pending copy.
 

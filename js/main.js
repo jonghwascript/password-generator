@@ -153,10 +153,10 @@ $(function () {
     else if (password.length >= 8 && types >= 2) level = 1;
 
     const labels = ['TOO WEAK!', 'WEAK', 'MEDIUM', 'STRONG'];
-    const colors = ['bg-red', 'bg-orange', 'bg-yello', 'bg-green'];
+    const colors = ['bg-red', 'bg-orange', 'bg-yellow', 'bg-green'];
     $('.strength-value').text(labels[level]);
     $('.strength .box-strength')
-      .removeClass('active bg-red bg-orange bg-yello bg-green')
+      .removeClass('active bg-red bg-orange bg-yellow bg-green')
       .slice(0, level + 1)
       .addClass(colors[level]);
   }
