@@ -59,6 +59,14 @@
     }
   }
 
+  // 복사 실패·생성 전 복사 안내. 카드는 블록 흐름이라 비밀번호 줄 아래에 놓이고, hidden일 때는 카드 높이가 그대로다.
+  // 색은 .c-options__error와 같은 이유로 경고색을 쓴다.
+  &__error {
+    margin-block-start: 0.5rem;
+    @include text-preset(4);
+    color: $orange-400;
+  }
+
   // 아이콘: 17.5 × 20 / 21 × 24. 높이는 viewBox(21 × 24) 비율로 정해진다.
   &__copy-icon {
     width: 1.09375rem;

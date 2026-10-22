@@ -289,6 +289,14 @@ body {
   outline: 2px solid #a4ffaf;
   outline-offset: 4px;
 }
+.c-output__error {
+  margin-block-start: 0.5rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25rem;
+  color: #fb7c58;
+}
 .c-output__copy-icon {
   width: 1.09375rem;
   height: auto;
@@ -315,6 +323,13 @@ body {
   min-inline-size: 0;
   padding: 0;
   border: 0;
+}
+.c-options__error {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25rem;
+  color: #fb7c58;
 }
 .c-options__actions {
   --space: 1rem;

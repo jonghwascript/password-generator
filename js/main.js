@@ -5,7 +5,10 @@ $(function () {
   const $slider = $('#length');
   const $lengthVal = $('#length-val');
   const $form = $('#password-form');
+  const $types = $('#character-types');
+  const $optionsError = $('#options-error');
   const $copyButton = $('#copy-button');
+  const $copyError = $('#copy-error');
   let copyTimer;
   let copyRequest = 0;
 
@@ -31,6 +34,26 @@ $(function () {
   // Update the slider background and length whenever the input changes.
   $slider.on('input', updateSliderBackground);
 
+  // Show a message below a control and link it with aria-describedby.
+  // The element is unhidden before its text is set so that role="alert" announces it.
+  function showError($error, $control, message) {
+    $error.prop('hidden', false).text(message);
+    $control.attr('aria-describedby', $error.attr('id'));
+  }
+
+  function clearError($error, $control) {
+    $error.prop('hidden', true).text('');
+    $control.removeAttr('aria-describedby');
+  }
+
+  function clearOptionsError() {
+    clearError($optionsError, $types.add($slider));
+  }
+
+  // Any change to the settings may fix the problem, so remove the old message.
+  $slider.on('input', clearOptionsError);
+  $types.on('change', clearOptionsError);
+
   // Read the form controls into plain settings for the password rules.
   function readSettings() {
     return {
@@ -49,6 +72,7 @@ $(function () {
     $('#copied').removeClass('is-visible');
     // Clear the status so the next message is a change that screen readers announce again.
     $('#copy-status').text('');
+    clearError($copyError, $copyButton);
     return copyRequest;
   }
 
@@ -58,14 +82,34 @@ $(function () {
     resetCopyFeedback();
   }
 
+  // These UI strength levels do not guarantee resistance to real attacks.
+  function updateStrength(password) {
+    const level = getStrengthLevel(password);
+    const labels = ['TOO WEAK!', 'WEAK', 'MEDIUM', 'STRONG'];
+    // State classes read by .c-strength; the level sets the color of the filled bars.
+    const states = ['is-too-weak', 'is-weak', 'is-medium', 'is-strong'];
+    $('#strength-value').text(labels[level]);
+    $('#strength').removeClass(states.join(' ')).addClass(states[level]);
+    $('#strength-bars')
+      .children()
+      .removeClass('is-filled')
+      .slice(0, level + 1)
+      .addClass('is-filled');
+  }
+
   $form.on('submit', function (event) {
     // Prevent the default form submission from reloading the page.
     event.preventDefault();
+    clearOptionsError();
 
     const settings = readSettings();
     const error = validateSettings(settings);
     if (error) {
-      alert(error);
+      showError(
+        $optionsError,
+        error.field === 'types' ? $types : $slider,
+        error.message,
+      );
       return;
     }
 
@@ -76,7 +120,7 @@ $(function () {
   $copyButton.on('click', async function () {
     const $password = $('#password');
     if (!$password.hasClass('is-generated') || !$password.text()) {
-      alert('Please generate a password first.');
+      showError($copyError, $copyButton, 'Generate a password first.');
       return;
     }
 
@@ -91,23 +135,11 @@ $(function () {
       copyTimer = setTimeout(() => $('#copied').removeClass('is-visible'), 2000);
     } catch {
       if (request !== copyRequest) return;
-      alert('Could not copy the password to the clipboard. Please check your browser permissions.');
+      showError(
+        $copyError,
+        $copyButton,
+        'Could not copy the password. Check your browser permissions.',
+      );
     }
   });
-
-  // These UI strength levels do not guarantee resistance to real attacks.
-  function updateStrength(password) {
-    const level = getStrengthLevel(password);
-
-    const labels = ['TOO WEAK!', 'WEAK', 'MEDIUM', 'STRONG'];
-    // State classes read by .c-strength; the level sets the color of the filled bars.
-    const states = ['is-too-weak', 'is-weak', 'is-medium', 'is-strong'];
-    $('#strength-value').text(labels[level]);
-    $('#strength').removeClass(states.join(' ')).addClass(states[level]);
-    $('#strength-bars')
-      .children()
-      .removeClass('is-filled')
-      .slice(0, level + 1)
-      .addClass('is-filled');
-  }
 });

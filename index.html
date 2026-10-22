@@ -52,6 +52,7 @@
               </button>
             </div>
           </div>
+          <p id="copy-error" class="c-output__error" role="alert" hidden></p>
         </div>
         <!-- Group the configuration and creation actions within a `<form>`, and use `<fieldset>` and `<legend>` to describe the related checkboxes. -->
         <form
@@ -79,7 +80,11 @@
             />
           </div>
           <!-- Character types -->
-          <fieldset class="c-options__types l-stack" data-space="normal">
+          <fieldset
+            id="character-types"
+            class="c-options__types l-stack"
+            data-space="normal"
+          >
             <!-- The legend is visually hidden but still announced by screen readers as the group name. -->
             <legend class="u-sr-only">Character types</legend>
             <label class="c-checkbox l-cluster" data-justify="start">
@@ -119,6 +124,13 @@
               <span class="c-checkbox__mark" aria-hidden="true"></span>
               <span class="c-checkbox__label">Include Symbols</span>
             </label>
+            <!-- Validation message. Hidden until a submit fails; linked to the related control with aria-describedby. -->
+            <p
+              id="options-error"
+              class="c-options__error"
+              role="alert"
+              hidden
+            ></p>
           </fieldset>
           <!-- Strength + Generate: 둘 사이 간격(16 / 32)이 폼 섹션 간격(32)과 달라서 따로 묶는다 -->
           <div class="c-options__actions l-stack">

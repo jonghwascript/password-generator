@@ -7,17 +7,28 @@ const CHARACTER_GROUPS = {
   symbols: '!@#$%^&*()_+~`|}{[]:;?><,./-=',
 };
 
-// Return an error message, or null when the settings can produce a password.
+// Minimum entropy in bits for WEAK, MEDIUM and STRONG. Anything lower is TOO WEAK.
+// These are UI thresholds for randomly generated passwords, not a guarantee against real attacks.
+const STRENGTH_THRESHOLDS = [36, 60, 80];
+
+// Return null when the settings can produce a password, otherwise
+// { field, message } where field is the control the message belongs to.
 function validateSettings({ length, types }) {
   if (!Number.isInteger(length) || length < 1) {
-    return 'Password length must be a whole number of at least 1.';
+    return {
+      field: 'length',
+      message: 'Password length must be a whole number of at least 1.',
+    };
   }
   if (types.length === 0) {
     // Do not add a character type the user has not selected.
-    return 'Select at least one character type.';
+    return { field: 'types', message: 'Select at least one character type.' };
   }
   if (length < types.length) {
-    return `Password length must be at least ${types.length} to include each selected character type.`;
+    return {
+      field: 'length',
+      message: `Password length must be at least ${types.length} to include each selected character type.`,
+    };
   }
   return null;
 }
@@ -50,23 +61,29 @@ function generatePassword(length, groups) {
   return password.join('');
 }
 
-// Return 0 (TOO WEAK) to 3 (STRONG) from the length and the number of character types.
+// Entropy of a random password: length × log2(size of the character pool).
+// The pool is the sum of every character group that appears in the password.
+function getEntropy(password) {
+  const pool = Object.values(CHARACTER_GROUPS)
+    .filter((group) => [...password].some((char) => group.includes(char)))
+    .reduce((size, group) => size + group.length, 0);
+  return pool > 1 ? password.length * Math.log2(pool) : 0;
+}
+
+// Return 0 (TOO WEAK) to 3 (STRONG).
 function getStrengthLevel(password) {
-  const types = [/[A-Z]/, /[a-z]/, /[0-9]/, /[^A-Za-z0-9]/].filter((pattern) =>
-    pattern.test(password),
-  ).length;
-  if (password.length >= 16 && types === 4) return 3;
-  if (password.length >= 12 && types >= 3) return 2;
-  if (password.length >= 8 && types >= 2) return 1;
-  return 0;
+  const entropy = getEntropy(password);
+  return STRENGTH_THRESHOLDS.filter((bits) => entropy >= bits).length;
 }
 
 // Export for Node tests. In the browser these remain globals used by main.js.
 if (typeof module === 'object' && module.exports) {
   module.exports = {
     CHARACTER_GROUPS,
+    STRENGTH_THRESHOLDS,
     validateSettings,
     generatePassword,
+    getEntropy,
     getStrengthLevel,
   };
 }

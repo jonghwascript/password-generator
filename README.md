@@ -30,19 +30,19 @@ The current implementation lets users:
 
 - Choose a password length from 1 to 20 characters.
 - Include uppercase letters, lowercase letters, numbers, and symbols.
-- Start with lowercase letters selected, and get an alert instead of a password when every character type is cleared.
+- Start with lowercase letters selected, and see an inline message instead of a password when every character type is cleared or the length is too short for the selected types.
 - Include at least one character from every selected type. The requested length must accommodate those types.
 - See the generated password and a four-level strength indicator.
-- Copy the result and see a confirmation for two seconds, with a separate screen reader status message.
+- Copy the result and see a confirmation for two seconds, with a separate screen reader status message. Copying before generating, or a clipboard failure, shows an inline message below the password.
 
-Passwords use `crypto.getRandomValues()` for random selection. The strength display uses a simple length-and-character-variety rule, not an estimate of actual cracking time.
+Passwords use `crypto.getRandomValues()` for random selection. Because every character is chosen at random, the strength display estimates entropy as `length × log2(pool size)`, where the pool is the total size of the character groups used (26 uppercase, 26 lowercase, 10 numbers, 29 symbols). The thresholds are a UI rule for these generated passwords, not a guarantee against real attacks.
 
-| Highest matching condition | Label | Filled bars | State class on `.c-strength` |
-| --- | --- | --- | --- |
-| None of the conditions below | TOO WEAK! | 1 | `is-too-weak` (red) |
-| At least 8 characters and 2 character types | WEAK | 2 | `is-weak` (orange) |
-| At least 12 characters and 3 character types | MEDIUM | 3 | `is-medium` (yellow) |
-| At least 16 characters and all 4 character types | STRONG | 4 | `is-strong` (green) |
+| Entropy | Label | Filled bars | State class on `.c-strength` | Examples |
+| --- | --- | --- | --- | --- |
+| Below 36 bits | TOO WEAK! | 1 | `is-too-weak` (red) | 5 lowercase letters (23.5 bits) |
+| 36 bits or more | WEAK | 2 | `is-weak` (orange) | 8 lowercase (37.6), 8 of all types (52.1) |
+| 60 bits or more | MEDIUM | 3 | `is-medium` (yellow) | 13 lowercase (61.1) |
+| 80 bits or more | STRONG | 4 | `is-strong` (green) | 20 lowercase (94.0), 13 of all types (84.6) |
 
 ### Requirement status
 
@@ -52,11 +52,11 @@ The following status is based on source review and layout measurements, not a co
 | --- | --- | --- |
 | Generate passwords using selected options | Implemented | Only selected types are used; generation is blocked when none is selected. |
 | Copy the generated password to the clipboard | Implemented; browser verification pending | Verify successful copying and permission failures in actual browsers. |
-| Display a password strength rating | Implemented | Four levels are shown using the simple rule described above. |
+| Display a password strength rating | Implemented | Four levels are shown using the entropy rule described above. |
 | Adapt the interface to different screen sizes | Implemented; layout measured at 375, 768, and 1440px | Check viewports narrower than 375px, long passwords, copy feedback, and zoom. |
 | Show hover and focus states for every interactive element | Implemented; keyboard verification pending | Confirm that every focus indicator is visible in actual browsers. |
 
-The slider thumb changes its appearance on hover and focus. The copy and generate buttons have hover styles and `:focus-visible` outlines. Checkbox inputs are visually hidden with `sr-only`, so their visible marks receive the `:focus-visible` outline instead.
+The slider thumb changes its appearance on hover and focus. The copy and generate buttons have hover styles and `:focus-visible` outlines. Checkbox inputs are visually hidden with `u-sr-only`, so their visible marks receive the `:focus-visible` outline instead.
 
 ### Screenshot
 
@@ -238,9 +238,9 @@ JavaScript behavior, UI integration, and removal of an unused stylesheet were co
 
 ### Validation
 
-The password rules live in `js/password.js`, which does not touch the DOM. The page loads it before `js/main.js`, and the tests in `test/password.test.js` load it with `require()`. `npm test` runs them with Node's built-in test runner and covers validation, generation (only selected types, each type included, requested length), and strength levels.
+The password rules live in `js/password.js`, which does not touch the DOM. The page loads it before `js/main.js`, and the tests in `test/password.test.js` load it with `require()`. `npm test` runs them with Node's built-in test runner and covers validation, generation (only selected types, each type included, requested length), entropy, and strength levels.
 
-The tests do not exercise the browser DOM or clipboard permissions. Actual clipboard behavior and screen reader announcements still require manual verification.
+The tests do not exercise the browser DOM or clipboard permissions. Inline messages, copy feedback, and strength bars were checked in Chrome with a stubbed clipboard; actual clipboard behavior and screen reader announcements still require manual verification.
 
 The layout was compared with the Figma mobile, tablet, and desktop frames by measuring element positions and sizes in Chrome at 375, 768, and 1440px. Tablet and desktop matched the design; the mobile content was 3px shorter because the design wraps three checkbox rows in 21px containers. This was a measurement, not a visual or cross-browser review.
 
@@ -260,15 +260,12 @@ Focus styles for the checkbox marks and both buttons are implemented with `:focu
 
 The password row, checkbox rows, and strength panel use Cluster's `flex-wrap: wrap`, so content moves to another line when a row runs out of space. These cases are estimates from the font size and container widths, not observed results:
 
-- At 375px, a 20-character password may push the copy button onto a second line. On desktop, the same can happen while `COPIED` is visible.
+- At 375px, a 20-character password may push the copy button onto a second line. On tablet and desktop this was observed while `COPIED` is visible with a 20-character password.
 - Below roughly 340px, checkbox descriptions may move below their marks.
 - Below roughly 355px, the strength bars may move below the label once a rating such as `TOO WEAK!` appears.
 
 #### Further improvements
 
-- Improve the strength model so that long single-type passwords are not automatically assigned the lowest rating.
-- Review remaining HTML issues, such as decorative SVG semantics.
-- Replace blocking alerts with associated inline validation where appropriate.
 - Add browser tests for generation, clipboard failure, repeated clicks, and regeneration during a pending copy.
 
 ### Useful resources
