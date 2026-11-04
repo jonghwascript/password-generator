@@ -1,0 +1,23 @@
+// 진입점: 불러오기만 한다. 불러오는 순서가 곧 캐스케이드 순서다.
+// 레이아웃(l-) → 컴포넌트(c-) → 유틸리티(u-) 순서라서, 컴포넌트는 클래스 하나로 레이아웃 기본값을 덮어쓴다.
+// 레이아웃 값은 data-* 옵션 대신 --space·--padding 같은 변수로 바꾼다.
+
+@use 'base/fonts';
+@use 'base/reset';
+@use 'base/base';
+
+@use 'layout/box';
+@use 'layout/cluster';
+@use 'layout/stack';
+@use 'layout/center';
+@use 'layout/cover';
+
+@use 'components/page';
+@use 'components/output';
+@use 'components/options';
+@use 'components/slider';
+@use 'components/checkbox';
+@use 'components/strength';
+@use 'components/button';
+
+@use 'utilities/utilities'; // 같은 명시도에서 다른 규칙을 이기도록 마지막에

@@ -1,0 +1,42 @@
+// Layout primitives from Every Layout by Heydon Pickering & Andy Bell
+// https://every-layout.dev/layouts — © Heydon Pickering & Andy Bell
+// Used and modified under a purchased Every Layout licence held by the repository owner.
+// Not covered by this repository's license. Do not copy or redistribute.
+// ==========================================
+// The Cluster (가로 줄바꿈 배치 - 태그, 버튼 그룹용)
+// ==========================================
+.l-cluster {
+  // 기본 간격을 클래스에 직접 선언해 조상(.l-stack·.l-cover 등)의 --space를 상속하지 않는다.
+  // 바꾸려면 data-gap 옵션이나 이 요소의 컴포넌트 클래스에서 --space를 지정한다.
+  --space: 1rem;
+  // Flexbox 문맥 설정
+  display: flex;
+  // 자식 요소들이 넘치면 자연스럽게 줄바꿈 허용
+  flex-wrap: wrap;
+  gap: var(--space);
+  // 가로 정렬 기본값: 가운데 (data-justify로 바꾼다)
+  justify-content: center;
+  // 세로 정렬: 가운데
+  align-items: center;
+}
+
+// 옵션 확장 (클러스터의 다양한 맛)
+.l-cluster[data-justify='start'] {
+  justify-content: flex-start;
+}
+
+.l-cluster[data-justify='between'] {
+  justify-content: space-between;
+}
+
+.l-cluster[data-gap='small'] {
+  --space: 0.5rem; //8px;
+}
+
+.l-cluster[data-gap='normal'] {
+  --space: 1rem; //16px;
+}
+
+.l-cluster[data-gap='large'] {
+  --space: 1.5rem;
+}

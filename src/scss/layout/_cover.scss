@@ -1,0 +1,25 @@
+// Layout primitives from Every Layout by Heydon Pickering & Andy Bell
+// https://every-layout.dev/layouts — © Heydon Pickering & Andy Bell
+// Used and modified under a purchased Every Layout licence held by the repository owner.
+// Not covered by this repository's license. Do not copy or redistribute.
+// ==========================================
+// The Cover (히어로 섹션 - 수직 중앙 집중식 레이아웃)
+// ==========================================
+.l-cover {
+  --space: var(--s1, 1.5rem);
+  // 세로(열) 방향 Flex 문맥 설정
+  display: flex;
+  flex-direction: column;
+  // 최소 높이를 화면 전체(100vh)로 설정
+  min-block-size: 100vh;
+  // 패딩 값 설정
+  padding: var(--space);
+}
+
+// 화면 세로 정중앙 배치
+// 관계: 세로 flex 안에서 위아래 auto margin이 남는 높이를 나눠 가진다.
+// 제한: min-block-size는 최소값이라, 내용이 (100vh − 위아래 패딩)보다 길면 auto margin이 0이 되고 내용은 위 패딩에서 시작하며 높이가 늘어난다.
+// 위쪽에 고정하려면 `.l-cover` 요소에 `--center-margin-block: 0 auto`를 지정한다.
+.l-cover > .l-center {
+  margin-block: var(--center-margin-block, auto);
+}

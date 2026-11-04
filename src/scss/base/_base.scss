@@ -1,0 +1,9 @@
+@use '../abstracts' as *;
+
+// 전역 기본값: 배경과 글꼴
+body {
+  background-color: $grey-950; // 그라디언트 미지원 대비
+  background-image: $bg-gradient;
+  font-family: $font-primary;
+  font-weight: 700;
+}

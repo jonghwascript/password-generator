@@ -1,0 +1,56 @@
+@use '../abstracts' as *;
+
+// 강도 단계 이름과 채운 막대 색. JS가 `.c-strength`에 `is-{단계}`, 채울 막대에 `is-filled`를 붙인다.
+$strength-levels: (
+  'too-weak': $red-500,
+  'weak': $orange-400,
+  'medium': $yellow-300,
+  'strong': $green-200,
+);
+
+// 관계: STRENGTH 라벨과 (단계 텍스트 + 막대 4개) 그룹을 좌우 끝 정렬한다.
+// 제한: 높이 = 패딩 + 가장 높은 항목(막대·단계 텍스트 28) → 56 / 72. 두 그룹 폭의 합이 줄 폭을 넘으면 그룹이 다음 줄로 내려가 높이가 늘어난다.
+// 전환: 768px 이상에서 패딩 14·16 → 22·32, 라벨 16/20 → 18/24.
+//       단계 텍스트 크기는 미디어 쿼리와 별개로 뷰포트 375px ~ 1024px 사이에서 16px → 24px로 연속 변한다(clamp).
+.c-strength {
+  padding-block: 0.875rem;
+  padding-inline: 1rem;
+  background-color: $grey-850;
+
+  // .c-strength.is-too-weak / .is-weak / .is-medium / .is-strong 의 채운 막대 색을 만든다.
+  @each $level, $color in $strength-levels {
+    &.is-#{$level} &__bar.is-filled {
+      background-color: $color;
+    }
+  }
+
+  @include mq('tablet') {
+    padding-block: 1.375rem;
+    padding-inline: 2rem;
+  }
+
+  &__label {
+    @include text-preset(4);
+    color: $grey-600;
+    text-transform: uppercase;
+
+    @include mq('tablet') {
+      @include text-preset(3);
+    }
+  }
+
+  // 강도 단계 텍스트는 Figma 빈 상태 프레임에 없어 크기를 확인할 수 없다(기존 값 유지).
+  &__value {
+    min-block-size: 1.75rem;
+    font-size: clamp(1rem, 0.7111rem + 1.2327vw, 1.5rem);
+    // 막대 높이(28)에 맞춰 줄높이를 고정해, 텍스트가 생겨도 박스 높이가 바뀌지 않게 한다.
+    line-height: 1.75rem;
+    color: $grey-200;
+  }
+
+  &__bar {
+    width: 0.625rem;
+    height: 1.75rem; // 28px
+    border: 0.125rem solid $grey-200;
+  }
+}

@@ -1,0 +1,39 @@
+@use '../abstracts' as *;
+
+// 관계: main(.l-cover, 세로 flex)의 콘텐츠 박스 안에 섹션이 놓인다. 좌우 패딩 1rem은 `.l-cover`의 1.5rem을 선언 순서로 덮어쓰고, 위아래 1.5rem은 남는다.
+// 제한: main 높이는 최소 100vh이고 내용이 길면 늘어난다.
+// 전환: 768px 미만은 `.l-cover > .l-center`의 auto margin으로 세로 가운데. 768px 이상은 위 패딩 133px에서 시작하고 아래 auto margin이 남는 높이를 차지한다.
+.c-page {
+  padding-inline: 1rem;
+
+  @include mq('tablet') {
+    --center-margin-block: 0 auto;
+    padding-block-start: 8.3125rem; // 133px
+  }
+}
+
+// 관계: 섹션 폭 = min(main 콘텐츠 폭, 540px). `.l-center`의 너비·여백은 변수로 정한다.
+// 전환: 768px 이상에서 카드 사이 간격 16 → 24.
+.c-generator {
+  --measure: 33.75rem; // 540px
+  --gutter-inline: 0; // 바깥 여백은 .c-page가 맡는다
+  --space: 1rem;
+  inline-size: 100%; // 세로 flex에서 auto margin 때문에 내용 폭으로 줄어들지 않게 한다
+
+  @include mq('tablet') {
+    --space: 1.5rem;
+  }
+
+  // 관계: 제목 아래 간격 = 섹션 스택 gap + margin-block-end.
+  // 전환: 768px 이상에서 16 → 24 + 8 = 32.
+  &__title {
+    @include text-preset(4);
+    color: $grey-600;
+    text-align: center;
+
+    @include mq('tablet') {
+      @include text-preset(2);
+      margin-block-end: 0.5rem;
+    }
+  }
+}
